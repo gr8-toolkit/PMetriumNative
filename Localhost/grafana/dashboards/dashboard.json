@@ -1,0 +1,1576 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": true,
+        "iconColor": "green",
+        "name": "Test start",
+        "query": "SELECT title, text, tags FROM \"android.annotations\" WHERE  $timeFilter AND \"title\" =~ /.*STARTED/ AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/",
+        "tagsColumn": "tags",
+        "textColumn": "text"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": true,
+        "iconColor": "red",
+        "name": "Test finished",
+        "query": "SELECT title, text, tags FROM \"android.annotations\" WHERE  $timeFilter AND \"title\" =~ /.*FINISHED/ AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/",
+        "tagsColumn": "tags",
+        "textColumn": "text"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": false,
+        "iconColor": "semi-dark-blue",
+        "name": "Events",
+        "query": "SELECT title, text, tags FROM \"android.annotations\" WHERE  $timeFilter AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]' AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/",
+        "tagsColumn": "tags",
+        "textColumn": "text",
+        "timeEndColumn": "timestamp"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 5,
+  "iteration": 1655889643426,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU - Total"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU - App"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "CPU - Total",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"percentage\") FROM \"android.cpu.usage.total\" WHERE  $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "CPU - App",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"percentage\") FROM \"android.cpu.usage.app\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "CPU",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM - Total"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM - App PSS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM - App Private"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM - Total Used"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "RAM - Total",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.ram.total\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "RAM - Total Used",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.ram.usage.total\" WHERE  $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "RAM - App PSS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.ram.usage.app.pss\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "RAM - App Private",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.ram.usage.app.private\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "RAM",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Bytes/sec - transferred"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "Bytes/sec - transferred",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.network.app.transferred\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Bytes/sec - received",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"byte\") FROM \"android.network.app.received\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "NETWORK",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mamph"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 5,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "mAh",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"mAh\") FROM \"android.battery.usage.app\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "BATTERY",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rendered frames"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Janky frames"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 6,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "Rendered frames",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"count\") FROM \"android.frames.rendered\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Janky frames",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"count\") FROM \"android.frames.janky\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s) FILL($fill)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "FRAMES",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 7,
+      "links": [],
+      "options": {
+        "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "$tag_event",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"latency\") FROM \"android.events.app\" WHERE  $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s), event FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "LAST APPLICATION EVENTS",
+      "transformations": [],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 8,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.5.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "$tag_event",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"latency\") FROM \"android.events.app\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ GROUP BY time(1s), event FILL($fill)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "APPLICATION EVENTS",
+      "transformations": [],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SHOW TAG VALUES FROM \"android.annotations\" WITH KEY = \"space\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Space",
+        "multi": false,
+        "name": "space",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"android.annotations\" WITH KEY = \"space\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"group\") FROM (SELECT \"group\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Group",
+        "multi": true,
+        "name": "group",
+        "options": [],
+        "query": "SELECT DISTINCT(\"group\") FROM (SELECT \"group\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"label\") FROM (SELECT \"label\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/)   ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Label",
+        "multi": true,
+        "name": "label",
+        "options": [],
+        "query": "SELECT DISTINCT(\"label\") FROM (SELECT \"label\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/)   ",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "10"
+          ],
+          "value": [
+            "10"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"androidVersion\") FROM (SELECT \"androidVersion\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "AndroidVersion",
+        "multi": true,
+        "name": "androidVersion",
+        "options": [],
+        "query": "SELECT DISTINCT(\"androidVersion\") FROM (SELECT \"androidVersion\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"deviceName\") FROM (SELECT \"deviceName\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/ AND androidVersion =~ /$androidVersion/) \t\t",
+        "hide": 0,
+        "includeAll": true,
+        "label": "DeviceName",
+        "multi": true,
+        "name": "deviceName",
+        "options": [],
+        "query": "SELECT DISTINCT(\"deviceName\") FROM (SELECT \"deviceName\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/ AND androidVersion =~ /$androidVersion/) \t\t",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"device\") FROM (SELECT \"device\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/ AND androidVersion =~ /$androidVersion/ AND deviceName =~ /$deviceName/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Device",
+        "multi": true,
+        "name": "device",
+        "options": [],
+        "query": "SELECT DISTINCT(\"device\") FROM (SELECT \"device\",\"text\" FROM \"android.annotations\" WHERE $timeFilter AND space=~ /$space/ AND \"group\" =~ /$group/ AND label =~ /$label/ AND androidVersion =~ /$androidVersion/ AND deviceName =~ /$deviceName/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "null",
+          "value": "null"
+        },
+        "description": "Null - better for visualization, None - better for performance",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Optimize query",
+        "multi": false,
+        "name": "fill",
+        "options": [
+          {
+            "selected": true,
+            "text": "null",
+            "value": "null"
+          },
+          {
+            "selected": false,
+            "text": "none",
+            "value": "none"
+          }
+        ],
+        "query": "null, none",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-06-22T08:12:25.634Z",
+    "to": "2022-06-22T08:12:42.929Z"
+  },
+  "timepicker": {},
+  "timezone": "utc",
+  "title": "PMetrium Native - Android",
+  "uid": "mtPy_xrnz",
+  "version": 5,
+  "weekStart": "monday"
+}

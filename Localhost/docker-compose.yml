@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  influxdb-pmetrium-native:
+      build: ./influxdb
+      container_name: influxdb-pmetrium-native
+      hostname: influxdb-pmetrium-native
+      ports:
+       - "8086:8086"
+      volumes:
+       - influxdb-pmetrium-native:/var/lib/influxdb
+      environment:
+        - INFLUXDB_DATABASE_NAME=PMetriumNative # InfluxDB user login: admin, password: admin
+      restart: always
+      
+  chronograf-pmetrium-native:
+      build: ./chronograf
+      container_name: chronograf-pmetrium-native
+      hostname: chronograf-pmetrium-native
+      depends_on:
+       - influxdb-pmetrium-native
+      ports:
+       - "8888:8888"
+      volumes:
+       - chronograf-pmetrium-native:/var/lib/chronograf
+      restart: always
+           
+  grafana-pmetrium-native:
+      build: ./grafana
+      container_name: grafana-pmetrium-native
+      hostname: grafana-pmetrium-native
+      depends_on:
+        - chronograf-pmetrium-native
+      ports:
+       - "3700:3000"
+      volumes:
+       - grafana-pmetrium-native:/var/lib/grafana
+      environment:
+        - INFLUXDB_DATABASE_NAME=PMetriumNative # Grafana user login: admin, password: admin
+      restart: always
+      
+volumes:
+    influxdb-pmetrium-native: 
+    chronograf-pmetrium-native:
+    grafana-pmetrium-native:
