@@ -1,3 +1,3 @@
-## <img src="Assets/PMetriumNativeLogo.png" width="75" height="75"> PMetriumNative
+## <img src="Assets/PMetriumNativeLogo.png" width="80" height="80"> PMetriumNative
 
  
