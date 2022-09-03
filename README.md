@@ -1,2 +1,2 @@
-## PMetriumNative
-![alt text](Assets/PMetriumNativeLogo.png | width=100)
+## <img src="Assets/PMetriumNativeLogo.png" width="50" height="50"> PMetriumNative
+
