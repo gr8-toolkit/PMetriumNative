@@ -26,7 +26,7 @@ And to get the results in Grafana:<br>
 
 <img src="Assets/PMNGrafana_1.jpg">
 
-Package directory contains a single executable file for PMetrium Native for the most common OS platforms and architectures.
+PackageRegistry directory contains a single executable file for PMetrium Native for the most common OS platforms and architectures.
 
 **Contributors are welcome and stay tuned!**
 
