@@ -22,9 +22,11 @@ dotnet test .\src\PMetrium.Native\FunctionalTests  --filter ColdStart
 curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Stop
 ```
 
-And to get the results in Grafana:<br>
+Okey, no more words. Let's look at live Demo for Android:<br>
 
-<img src="Assets/PMNGrafana_1.jpg">
+<img src="Assets/Demo.gif">
+
+Demo for IOS is coming soon!<br>
 
 PackageRegistry directory contains a single executable file for PMetrium Native for the most common OS platforms and architectures.
 
