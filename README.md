@@ -3,7 +3,7 @@
 
 **PMetriumNative** - a testing tool for measuring performance of mobile native applications as well as the system itself.
 
-Please follow the **[DOCUMENTATION](README.md)** (to be done in a few days) to get detailed information about PMetrium Native. 
+Please follow the **[DOCUMENTATION](https://parimatch-tech.github.io/PMetriumNative/)** to get detailed information about PMetrium Native. 
 
 Key facts about the instrument:
 - PMetrium Native works as web server on the host machine with direct connections to real devices. Therefor PMetrium Native provides you a RESTful API for interactions
