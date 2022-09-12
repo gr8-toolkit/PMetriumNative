@@ -19,8 +19,8 @@ const configs = {
 const config = {
   title: 'PMetrium Native',
   tagline: '',
-  url: 'http://localhost:3000',
-  baseUrl: '/',
+  url: 'https://parimatch-tech.github.io',
+  baseUrl: '/PMetriumNative/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
