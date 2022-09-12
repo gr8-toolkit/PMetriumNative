@@ -9,12 +9,12 @@ type FeatureItem = {
 };
 
 const FeatureList: FeatureItem[] = [
-  {
+    {
     title: 'Performance of native applications',
     Svg: require('@site/static/img/logo.svg').default,
     description: (
       <>
-          **PMetrium Native** - is a fully Open Source tool (MIT License) for measuring performance of native applications and the impact on the system.
+          <span><b>PMetrium Native</b></span> - is a fully Open Source tool (MIT License) for measuring performance of native applications and the impact on the system.
       </>
     ),
   } 
@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, Svg, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col')}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>

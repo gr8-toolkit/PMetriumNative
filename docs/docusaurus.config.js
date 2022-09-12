@@ -19,8 +19,8 @@ const configs = {
 const config = {
   title: 'PMetrium Native',
   tagline: '',
-  url: 'https://parimatch-tech.github.io',
-  baseUrl: '/PMetriumNative/',
+  url: 'http://localhost:3000',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
@@ -32,7 +32,7 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
+        docs: { 
           id: 'default',
           path: 'docs/tutorial',
           routeBasePath: 'tutorial',
