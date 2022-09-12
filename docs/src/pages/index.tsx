@@ -17,7 +17,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/tools/intro">
-            PMetrium Native Intro
+              Documentation
           </Link>
         </div>
       </div>

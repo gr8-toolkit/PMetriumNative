@@ -76,20 +76,16 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Community',
+            title: 'Authors',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Mykola Panasiuk',
+                href: 'https://www.linkedin.com/in/mykola-panasiuk-04ab79128',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
+                label: 'Pavlo Maikshak',
+                href: 'https://www.linkedin.com/in/pavlo-maikshak-29ba12179',
+              }
             ],
           },
           {
@@ -97,7 +93,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/parimatch-tech/PMetriumNative',
               },
             ],
           },
