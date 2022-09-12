@@ -60,7 +60,7 @@ After multiple various options tried, we've come up with the final approach on h
 
 ### Why PMetrium Native
 
-If you wonder what **PM** means, it's an abbreviation from the first names of ***Pavlo Maikshak*** and ***Mykola Panasiuk*** responsible for the creation of this framework. Also, we would like to mention ***Anton Boiko*** who greatly assisted us 🙂.
+If you wonder what **PM** means, it's an abbreviation from the first names of ***Pavlo Maikshak*** and ***Mykola Panasiuk*** responsible for the creation of this framework. Also, we would like to mention ***Anton Boyko*** who greatly assisted us 🙂.
 
 ## Alternative approaches:
 ### 1. Apptim
