@@ -8,53 +8,48 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="Files\LinuxBinaries\busybox">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\LinuxBinaries\nethogs">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\LinuxBinaries\x32\busybox">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Bat\healthCheck.bat">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Bat\logcat.bat">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Bat\readFile.bat">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Bat\start.bat">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Bat\stop.bat">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\healthCheck.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\logcat.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\phoneMetrics.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\readFile.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\start.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Files\Scripts\Shell\stop.sh">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
+		<PackageReference Include="InfluxDB.Client" Version="3.3.0-dev.4557" />
+		<PackageReference Include="Serilog" Version="2.11.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="InfluxDB.Client" Version="3.3.0-dev.4557" />
-		<PackageReference Include="Serilog" Version="2.11.0" />
+	  <Content Include="Scripts\Bat\healthCheck.bat">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Bat\logcat.bat">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Bat\readFile.bat">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Bat\start.bat">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Bat\stop.bat">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\healthCheck.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\logcat.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\phoneMetrics.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\readFile.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\start.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Scripts\Shell\stop.sh">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PMetrium.Native.Common\PMetrium.Native.Common.csproj" />
 	</ItemGroup>
 
 </Project>

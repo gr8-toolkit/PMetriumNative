@@ -113,7 +113,7 @@ Exemple with the `curl`:
 > curl \
     --header "PRIVATE-TOKEN:YOUR_PRIVATE_TOKEN" \
     -o PMetriumNative.win-x86.v1.0.0.tar.gz \
-    "ttps://github.com/parimatch-tech/PMetriumNative/tree/main/PackageRegistry/PMetriumNative.win-x86.v1.0.0.tar.gz"
+    "https://github.com/parimatch-tech/PMetriumNative/tree/main/PackageRegistry/PMetriumNative.win-x86.v1.0.0.tar.gz"
 ```
 
 Where:
