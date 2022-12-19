@@ -41,7 +41,7 @@ builder.Services.AddSwaggerGen(c =>
     c.UseInlineDefinitionsForEnums();
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "PMTelemetry v2.0",
+        Title = "PMetrium Native v2.0",
         Description = "Written by Mykola Panasiuk. Parimatch Tech</br>" +
                       "<a href='https://github.com/parimatch-tech/PMetriumNative'>GitHub</a></br>" +
                       "<a href='https://parimatch-tech.github.io/PMetriumNative'>Documentation</a>"
