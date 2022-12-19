@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<package>
+    <id>ua.pmetrium.native.instruments</id>
+    <title>PMetrium Native Instruments</title>
+    <owner>
+        <name>Mykola Panasiuk</name>
+    </owner>
+    
+    <import-schema>activity-monitor-system</import-schema>
+    <import-schema>activity-monitor-process-live</import-schema>
+    <import-schema>core-animation-fps-estimate</import-schema>
+    <import-schema>network-connection-stat</import-schema>
+    
+    <instrument>
+        <id>ua.pmetrium.native.SystemMetrics</id>
+        <title>PMN-SystemMetrics</title>
+        <category>System</category>
+        <purpose>System metrics: CPU, RAM, DISK, NETWORK</purpose>
+        <icon>Generic</icon>
+        
+        <create-table>
+            <id>system-metrics-table</id>
+            <schema-ref>activity-monitor-system</schema-ref>
+        </create-table>
+        
+        <graph>
+            <title>System Metrics</title>
+            <lane>
+                <title>System CPU</title>
+                <table-ref>system-metrics-table</table-ref>
+                <plot>
+                    <value-from>cpu-total-load</value-from>
+                </plot>
+            </lane>
+            <lane>
+                <title>System RAM</title>
+                <table-ref>system-metrics-table</table-ref>
+                <plot>
+                    <value-from>memory-physical-used</value-from>
+                </plot>
+            </lane>
+            <lane>
+                <title>System DISK - Bytes read/sec</title>
+                <table-ref>system-metrics-table</table-ref>
+                <base-color>Green</base-color>
+                <plot>
+                    <value-from>disk-bytes-read-per-second</value-from>
+                </plot>
+            </lane>
+            <lane>
+                <title>System DISK - Bytes written/sec</title>
+                <table-ref>system-metrics-table</table-ref>
+                <base-color>Red</base-color>
+                <plot>
+                    <value-from>disk-bytes-written-per-second</value-from>
+                </plot>
+            </lane>
+            <lane>
+                <title>System NETWORK - RX Bytes/sec</title>
+                <table-ref>system-metrics-table</table-ref>
+                <base-color>Blue</base-color>
+                <plot>
+                    <value-from>net-bytes-in-per-second</value-from>
+                </plot>
+            </lane>
+            <lane>
+                <title>System NETWORK - TX Bytes/sec</title>
+                <table-ref>system-metrics-table</table-ref>
+                <base-color>Red</base-color>
+                <plot>
+                    <value-from>net-bytes-out-per-second</value-from>
+                </plot>
+            </lane>
+        </graph>
+        
+        <list>
+            <title>SystemMetrics</title>
+            <table-ref>system-metrics-table</table-ref>
+            <column>start</column>
+            <column>cpu-total-load</column>
+            <column>memory-physical-used</column>
+            <column>disk-bytes-read-per-second</column>
+            <column>disk-bytes-written-per-second</column>
+            <column>disk-read-ops-per-second</column>
+            <column>disk-write-ops-per-second</column>
+            <column>net-bytes-in-per-second</column>
+            <column>net-bytes-out-per-second</column>
+            <column>net-packets-in-per-second</column>
+            <column>net-packets-out-per-second</column>
+        </list>
+    </instrument>
+    
+    <instrument>
+        <id>ua.pmetrium.native.FpsMetrics</id>
+        <title>PMN-FpsMetrics</title>
+        <category>Graphics</category>
+        <purpose>Allows to get frames per second</purpose>
+        <icon>Generic</icon>
+        
+        <create-table>
+            <id>fps-table</id>
+            <schema-ref>core-animation-fps-estimate</schema-ref>
+        </create-table>
+        
+        <graph>
+            <title>FPS</title>
+            <lane>
+                <title>FPS</title>
+                <table-ref>fps-table</table-ref>
+                <plot>
+                    <value-from>fps</value-from>
+                </plot>
+            </lane>
+        </graph>
+        
+        <list>
+            <title>Animation</title>
+            <table-ref>fps-table</table-ref>
+            <column>interval</column>
+            <column>fps</column>
+            <column>device-utilization</column>
+        </list>
+    </instrument>
+    
+    <instrument>
+        <id>ua.pmetrium.native.AppMetrics</id>
+        <title>PMN-AppMetrics</title>
+        <category>Behavior</category>
+        <purpose>Track metrics for the Application: CPU, RAM, NETWORK</purpose>
+        <icon>Generic</icon>
+        <import-parameter>
+            <from-scope>trace</from-scope>
+            <name>?target-pid</name>
+        </import-parameter>
+        
+        <create-table>
+            <id>app-table</id>
+            <schema-ref>activity-monitor-process-live</schema-ref>
+        </create-table>
+        
+        <create-table>
+            <id>app-network-table</id>
+            <schema-ref>network-connection-stat</schema-ref>
+            <attribute>
+                    <name>target-pid</name>
+                    <parameter-ref>?target-pid</parameter-ref>
+                </attribute>
+        </create-table>
+        
+        <list>
+            <title>AppMetrics</title>
+            <table-ref>app-table</table-ref>
+            <column>start</column>
+            <column>process</column>
+            <column>pid</column>
+            <column>cpu-percent</column>
+            <column>memory-physical-footprint</column>
+        </list>
+        
+        <list>
+            <title>AppNetwork</title>
+            <table-ref>app-network-table</table-ref>
+            <column>start-time</column>
+            <column>process</column>
+            <column>interface</column>
+            <column>protocol</column>
+            <column>description</column>
+            <column>rx-bytes</column>
+            <column>tx-bytes</column>
+            <column>rx-packets</column>
+            <column>tx-packets</column>
+        </list>
+    </instrument>
+
+    <template>
+        <import-from-file>PMetriumNative.tracetemplate</import-from-file>
+    </template>
+
+</package>

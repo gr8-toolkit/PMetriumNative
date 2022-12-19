@@ -1,0 +1,171 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AD14854928BFB2C100084C4B /* PMetriumNativeInstruments.instrpkg in Sources */ = {isa = PBXBuildFile; fileRef = AD14854828BFB2C100084C4B /* PMetriumNativeInstruments.instrpkg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AD14854528BFB2C100084C4B /* PMetriumNativeInstruments.instrdst */ = {isa = PBXFileReference; explicitFileType = com.apple.instruments.instrdst; includeInIndex = 0; path = PMetriumNativeInstruments.instrdst; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD14854828BFB2C100084C4B /* PMetriumNativeInstruments.instrpkg */ = {isa = PBXFileReference; lastKnownFileType = "com.apple.instruments.package-definition"; path = PMetriumNativeInstruments.instrpkg; sourceTree = "<group>"; };
+		AD90E44B290191CB00187B48 /* PMetriumNative.tracetemplate */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PMetriumNative.tracetemplate; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		AD14853E28BFB2C100084C4B = {
+			isa = PBXGroup;
+			children = (
+				AD14854728BFB2C100084C4B /* PMetriumNativeInstruments */,
+				AD14854628BFB2C100084C4B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD14854628BFB2C100084C4B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD14854528BFB2C100084C4B /* PMetriumNativeInstruments.instrdst */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD14854728BFB2C100084C4B /* PMetriumNativeInstruments */ = {
+			isa = PBXGroup;
+			children = (
+				AD90E44B290191CB00187B48 /* PMetriumNative.tracetemplate */,
+				AD14854828BFB2C100084C4B /* PMetriumNativeInstruments.instrpkg */,
+			);
+			path = PMetriumNativeInstruments;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AD14854428BFB2C100084C4B /* PMetriumNativeInstruments */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD14854A28BFB2C100084C4B /* Build configuration list for PBXNativeTarget "PMetriumNativeInstruments" */;
+			buildPhases = (
+				AD14854328BFB2C100084C4B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PMetriumNativeInstruments;
+			productName = PMetriumNativeInstruments;
+			productReference = AD14854528BFB2C100084C4B /* PMetriumNativeInstruments.instrdst */;
+			productType = "com.apple.product-type.instruments-package";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD14853F28BFB2C100084C4B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					AD14854428BFB2C100084C4B = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = AD14854228BFB2C100084C4B /* Build configuration list for PBXProject "PMetriumNativeInstruments" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD14853E28BFB2C100084C4B;
+			productRefGroup = AD14854628BFB2C100084C4B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD14854428BFB2C100084C4B /* PMetriumNativeInstruments */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD14854328BFB2C100084C4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD14854928BFB2C100084C4B /* PMetriumNativeInstruments.instrpkg in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AD14854028BFB2C100084C4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				INSTRUMENTS_PACKAGE_BUILDER_LINKED_PACKAGES = "ActivityMonitor IOKit Sampling Networking GPUBase";
+			};
+			name = Debug;
+		};
+		AD14854128BFB2C100084C4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				INSTRUMENTS_PACKAGE_BUILDER_LINKED_PACKAGES = "ActivityMonitor IOKit Sampling Networking GPUBase";
+			};
+			name = Release;
+		};
+		AD14854B28BFB2C100084C4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29WQQBHFZ9;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Instruments/Packages";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
+			};
+			name = Debug;
+		};
+		AD14854C28BFB2C100084C4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 29WQQBHFZ9;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Instruments/Packages";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD14854228BFB2C100084C4B /* Build configuration list for PBXProject "PMetriumNativeInstruments" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD14854028BFB2C100084C4B /* Debug */,
+				AD14854128BFB2C100084C4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD14854A28BFB2C100084C4B /* Build configuration list for PBXNativeTarget "PMetriumNativeInstruments" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD14854B28BFB2C100084C4B /* Debug */,
+				AD14854C28BFB2C100084C4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD14853F28BFB2C100084C4B /* Project object */;
+}

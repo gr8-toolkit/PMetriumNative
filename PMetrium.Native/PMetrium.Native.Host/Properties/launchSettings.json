@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "PMetrium.Native.Host": {
+      "commandName": "Project",
+      "workingDirectory": "/Users/mykola.panasiuk/repos/GitHubRepos/PMetriumNative/PMetrium.Native/PMetrium.Native.Host/bin/Debug/net6.0/osx-arm64",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7778;http://localhost:7777"
+    }
+  }
+}

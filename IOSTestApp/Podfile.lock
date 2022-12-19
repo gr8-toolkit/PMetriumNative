@@ -1,0 +1,20 @@
+PODS:
+  - AppSpectorSDK (1.4.7)
+  - Gifu (3.3.1)
+
+DEPENDENCIES:
+  - AppSpectorSDK
+  - Gifu
+
+SPEC REPOS:
+  trunk:
+    - AppSpectorSDK
+    - Gifu
+
+SPEC CHECKSUMS:
+  AppSpectorSDK: c8bcf789d66907a1e6ca9885e5afde741abec200
+  Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
+
+PODFILE CHECKSUM: 61a48d21f2903415e9bb4b2f47280e7eb59c7744
+
+COCOAPODS: 1.11.3

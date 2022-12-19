@@ -1,0 +1,3 @@
+target 'PMNative'
+
+pod 'Gifu'

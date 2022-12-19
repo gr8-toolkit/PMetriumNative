@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-adb -s $1 shell "logcat -d | grep PERFORMANCE"
+adb -s $1 shell "logcat -d | grep PMETRIUM_NATIVE"

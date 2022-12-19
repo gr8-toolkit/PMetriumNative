@@ -1,11 +1,10 @@
 using System.Collections.Concurrent;
-using System.Runtime.InteropServices;
-using System.Text;  
+using System.Text;
 using Newtonsoft.Json;
-using PMetrium.Native.Common.Contracts;
-using PMetrium.Native.Common.Contracts.IOS.XMLClasses;
 using PMetrium.Native.Common.Helpers;
 using PMetrium.Native.Common.Helpers.Extensions;
+using PMetrium.Native.IOS.Contracts;
+using PMetrium.Native.IOS.Contracts.XMLClasses;
 using PMetrium.Native.IOS.MetricsHandlers;
 using Serilog;
 using static PMetrium.Native.Common.Helpers.PlatformOSHelper;
@@ -57,6 +56,10 @@ public class IOSMetricsManager : IIOSMetricsManager
             });
 
         await CreateProcess($"rm", $"-rf {device}.trace").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf system-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf process-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf fps-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf network-{device}.xml").StartProcessAndWait();
 
         var process = CreateProcess(
             $"xctrace",
@@ -85,6 +88,9 @@ public class IOSMetricsManager : IIOSMetricsManager
 
         if (source.IsCancellationRequested)
         {
+            deviceContext.EventsProcess.Kill();
+            deviceContext.EventsProcess.Close();
+
             process.Kill();
             process.Close();
             _devicesContexts.Remove(device, out _);
@@ -99,80 +105,101 @@ public class IOSMetricsManager : IIOSMetricsManager
     {
         if (!_devicesContexts.TryGetValue(device, out var deviceContext))
             throw new Exception($"[IOS: {device}] Process for hardware metrics not found");
-
+        
         _devicesContexts.Remove(device, out _);
-
+        
         await CreateProcess("kill", $"-SIGINT {deviceContext.Process.Id}").StartProcessAndWait();
         await CreateProcess("kill", $"-9 {deviceContext.EventsProcess.Id}").StartProcessAndWait();
-
+        
         var source = new CancellationTokenSource();
         source.CancelAfter(TimeSpan.FromSeconds(60));
         var token = source.Token;
-
+        
         await deviceContext.Process.WaitForExitAsync(token);
         await deviceContext.EventsProcess.WaitForExitAsync(token);
-
+        
         Log.Information($"[IOS: {device}] IOSMetricsManager - measurement has stopped");
-
+        
         var xmlTraceToc = await CreateProcess(
             $"xctrace",
             $"export --input {device}.trace --toc").StartForDeviceAndGetOutput(device, token);
-
-        var serializer = new System.Xml.Serialization.XmlSerializer(typeof(TraceToc));
-        var memStream = new MemoryStream(Encoding.UTF8.GetBytes(xmlTraceToc));
-        var traceToc = (TraceToc)serializer.Deserialize(memStream)!;
-        memStream.Close();
-
+        
+        var traceToc = XmlToObject<TraceToc>(xmlTraceToc);
+        
         deviceContext.StartTime = traceToc.Run[0].Info.Summary.StartDate.ToUniversalTime();
         deviceContext.EndTime = traceToc.Run[0].Info.Summary.EndDate.ToUniversalTime();
-
+        
         await _influxDb.SaveAnnotationToInfluxDBAsync(
             "ios.annotations",
             "[ Test STARTED ]",
             deviceContext.AnnotationTags,
             deviceContext.CommonTags,
             deviceContext.StartTime);
-
+        
         await _influxDb.SaveAnnotationToInfluxDBAsync(
             "ios.annotations",
             "[ Test FINISHED ]",
             deviceContext.AnnotationTags,
             deviceContext.CommonTags,
             deviceContext.EndTime);
-
-        await ExportTracesToXML(device);
         
-        var isoPerformanceResults = new IOSPerformanceResults();
+        await ExportTracesToXML(device);
+
+        var iosPerformanceResults = new IOSPerformanceResults();
 
         var applicationMetricsHandler = new ApplicationMetricsHandler(
             deviceContext,
             _influxDb,
-            isoPerformanceResults);
+            iosPerformanceResults);
+        
         await applicationMetricsHandler.ExtractAndSaveMetrics(token);
 
-        return new IOSPerformanceResults();
+        var hardwareMetricsHandler = new HardwareMetricsHandler(
+            deviceContext,
+            _influxDb,
+            iosPerformanceResults);
+
+        hardwareMetricsHandler.ExtractAndSaveMetrics(token);
+
+        await CreateProcess($"rm", $"-rf {device}.trace").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf system-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf process-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf fps-{device}.xml").StartProcessAndWait();
+        await CreateProcess($"rm", $"-rf network-{device}.xml").StartProcessAndWait();
+
+        return iosPerformanceResults;
+    }
+
+    private T XmlToObject<T>(string xml)
+    {
+        var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+        var memStream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
+        var result = (T)serializer.Deserialize(memStream)!;
+        memStream.Close();
+
+        return result;
     }
 
     private async Task ExportTracesToXML(string device)
     {
         await CreateProcess(
                 "xctrace",
-                $"export --input {device}.trace --output system-{device}.xml --xpath '/trace-toc/run[@number=\"1\"]/data/table[@schema=\"activity-monitor-system\"]'")
+                $"export --input {device}.trace --output system-{device}.xml --xpath \"/trace-toc/run[@number='1']/data/table[@schema='activity-monitor-system']\"")
             .StartProcessAndWait();
 
         await CreateProcess(
                 "xctrace",
-                $"export --input {device}.trace --output process-{device}.xml --xpath '/trace-toc/run[@number=\"1\"]/data/table[@schema=\"activity-monitor-process-live\"]'")
+                $"export --input {device}.trace --output process-{device}.xml --xpath \"/trace-toc/run[@number='1']/data/table[@schema='activity-monitor-process-live']\"")
             .StartProcessAndWait();
 
         await CreateProcess(
                 "xctrace",
-                $"export --input {device}.trace --output fps-{device}.xml --xpath '/trace-toc/run[@number=\"1\"]/data/table[@schema=\"core-animation-fps-estimate\"]'")
+                $"export --input {device}.trace --output fps-{device}.xml --xpath \"/trace-toc/run[@number='1']/data/table[@schema='core-animation-fps-estimate']\"")
             .StartProcessAndWait();
 
         await CreateProcess(
                 "xctrace",
-                $"export --input {device}.trace --output fps-{device}.xml --xpath '/trace-toc/run[@number=\"1\"]/data/table[@schema=\"network-connection-stat\"]'")
+                $"export --input {device}.trace --output network-{device}.xml --xpath \"/trace-toc/run[@number='1']/data/table[@schema='network-connection-stat']\"")
             .StartProcessAndWait();
     }
 
@@ -188,12 +215,12 @@ public class IOSMetricsManager : IIOSMetricsManager
 
         deviceContext.ModelName = await CreateProcess("ideviceinfo", $"-k ProductType {device}")
             .StartForDeviceAndGetOutput(device, source.Token);
-
+        
         deviceContext.IOSVersion = await CreateProcess("ideviceinfo", $"-k ProductVersion {device}")
             .StartForDeviceAndGetOutput(device, source.Token);
-
+        
         source.CancelAfter(TimeSpan.FromSeconds(10));
-
+        
         deviceContext.DeviceParameters = new IOSDeviceParameters()
         {
             App = applicationName,
@@ -203,38 +230,26 @@ public class IOSMetricsManager : IIOSMetricsManager
             Label = label
         };
 
-        var annotationTags = new Dictionary<string, string>()
-        {
-            { "deviceModel", $"{deviceContext.ModelName}" },
-            { "iosVersion", $"{deviceContext.IOSVersion}" },
-            { "device", $"{deviceContext.DeviceParameters.Device}" },
-            { "application", $"{deviceContext.DeviceParameters.App}" },
-            { "space", $"{deviceContext.DeviceParameters.Space}" },
-            { "group", $"{deviceContext.DeviceParameters.Group}" },
-            { "label", $"{deviceContext.DeviceParameters.Label}" }
-        };
-
-        deviceContext.AnnotationTags = annotationTags;
-
         var commonTags = new Dictionary<string, string>()
         {
             { "space", $"{deviceContext.DeviceParameters.Space}" },
             { "group", $"{deviceContext.DeviceParameters.Group}" },
             { "label", $"{deviceContext.DeviceParameters.Label}" },
             { "iosVersion", $"{deviceContext.IOSVersion}" },
-            { "deviceModel", $"{deviceContext.ModelName}" },
+            { "deviceModel", $"{deviceContext.ModelName.Replace(",",".")}" },
             { "device", $"{deviceContext.DeviceParameters.Device}" },
             { "application", $"{deviceContext.DeviceParameters.App}" }
         };
-
+        
+        deviceContext.AnnotationTags = commonTags;
         deviceContext.CommonTags = commonTags;
-
+        
         Log.Debug(
             $"[IOS: {device}] Created device context: {JsonConvert.SerializeObject(deviceContext, Formatting.Indented)}");
-
-        var eventsProcess = CreateProcess("idevicesyslog", $"-m \"[PMetriumNative]\" {device}");
+        
+        var eventsProcess = CreateProcess("idevicesyslog", $"-m \"[PMETRIUM_NATIVE]\" {device}");
         var eventsLogs = new List<string>();
-
+        
         eventsProcess.OutputDataReceived += (sender, outLine) =>
         {
             if (!string.IsNullOrEmpty(outLine.Data))
@@ -244,7 +259,7 @@ public class IOSMetricsManager : IIOSMetricsManager
                 Log.Debug($"[IOS: {device}] {log}");
             }
         };
-
+        
         deviceContext.EventsProcess = eventsProcess;
         deviceContext.EventsLogs = eventsLogs;
         eventsProcess.StartForDevice(device);

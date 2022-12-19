@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
-using PMetrium.Native.Common.Contracts;
-using PMetrium.Native.Common.Helpers.Extensions;
 using PMetrium.Native.IOS;
-using Serilog;
-using static PMetrium.Native.Common.Helpers.PlatformOSHelper;
+using PMetrium.Native.IOS.Contracts;
 
 namespace PMetrium.Native.Host.Controllers;
 
@@ -20,24 +18,29 @@ public class IOSController : ControllerBase
     }
 
     [HttpGet]
-    public async Task Start(
+    public async Task<ActionResult<string>> Start(
         [Required] string device,
-        [Required] string applicationName,
+        string applicationName,
         string? space = "default",
         string? group = "default",
         string? label = "default")
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            return NotFound("PMetrium Native supports IOS only on OSX platforms");
+        
         await _iosMetricsManager.Start(
             device,
             applicationName,
             space,
             group,
             label);
+
+        return "Started";
     }
 
-     [HttpGet]
-     public async Task<IOSPerformanceResults> Stop([Required] string device)
-     {
-         return await _iosMetricsManager.Stop(device);
+    [HttpGet]
+    public async Task<IOSPerformanceResults> Stop([Required] string device)
+    {
+        return await _iosMetricsManager.Stop(device);
     }
 }

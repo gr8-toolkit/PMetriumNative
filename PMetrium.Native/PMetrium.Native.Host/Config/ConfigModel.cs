@@ -3,6 +3,8 @@
     public class ConfigModel
     {
         public Influxdb InfluxDB { get; set; }
+        public int HostPort { get; set; }
+        public string LogLevel { get; set; }
     }
 
 

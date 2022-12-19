@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
-using PMetrium.Native.Common.Contracts;
 using PMetrium.Native.Common.Helpers;
 using PMetrium.Native.Common.Helpers.Extensions;
+using PMetrium.Native.Metrics.Android.Contracts;
 using PMetrium.Native.Metrics.Android.MetricsHandlers;
 using Serilog;
 using static PMetrium.Native.Common.Helpers.PlatformOSHelper;
@@ -220,19 +220,6 @@ public class AndroidMetricsManager : IAndroidMetricsManager
             Label = label
         };
 
-        var annotationTags = new Dictionary<string, string>()
-        {
-            { "deviceName", $"{deviceContext.DeviceName}" },
-            { "androidVersion", $"{deviceContext.AndroidVersion}" },
-            { "device", $"{deviceContext.DeviceParameters.Device}" },
-            { "application", $"{deviceContext.DeviceParameters.App}" },
-            { "space", $"{deviceContext.DeviceParameters.Space}" },
-            { "group", $"{deviceContext.DeviceParameters.Group}" },
-            { "label", $"{deviceContext.DeviceParameters.Label}" }
-        };
-
-        deviceContext.AnnotationTags = annotationTags;
-
         var commonTags = new Dictionary<string, string>()
         {
             { "space", $"{deviceContext.DeviceParameters.Space}" },
@@ -244,6 +231,7 @@ public class AndroidMetricsManager : IAndroidMetricsManager
             { "application", $"{deviceContext.DeviceParameters.App}" }
         };
 
+        deviceContext.AnnotationTags = commonTags;
         deviceContext.CommonTags = commonTags;
 
         Log.Debug(

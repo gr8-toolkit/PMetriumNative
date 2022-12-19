@@ -13,9 +13,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Scripts\Bat\healthCheck.bat">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
 	  <Content Include="Scripts\Bat\logcat.bat">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -26,9 +23,6 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Scripts\Bat\stop.bat">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Scripts\Shell\healthCheck.sh">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Scripts\Shell\logcat.sh">

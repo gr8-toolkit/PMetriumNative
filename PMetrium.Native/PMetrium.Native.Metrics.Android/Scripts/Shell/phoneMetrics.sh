@@ -83,7 +83,10 @@ top -n 1 -b -p $$ | grep -i %cpu | grep -i %idle | awk '{ print $1 }' >$CPU_TOTA
 free | grep -i mem | awk '{ print $2 }' >$RAM_TOTAL_FILE
 
 dumpsys batterystats --reset
-USER_ID=$(dumpsys package $APP_NAME | grep userId | head -n 1 | cut -b 12-17)
+
+if [ $APP_NAME != "system" ]; then
+  USER_ID=$(dumpsys package $APP_NAME | grep userId | head -n 1 | cut -b 12-17)
+fi
 
 echo "-> READY_TO_TRACK_METRICS"
 
@@ -107,46 +110,57 @@ RAM_USAGE_TOTAL_PID=$!
 
 # =============> Get NETWORK usage statistic for the whole system and the APP
 
-if $NETWORK_TOTAL; then
+if $NETWORK_TOTAL && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
     export TIMESTAMP=$(date +%s)
     dumpsys batterystats --checkin | grep -E ",gn,|$USER_ID,l,nt" | awk -F',' '{ system("print -n $TIMESTAMP; print " "_"$5"_"$6"_"$7"_"$8"_"$4) }' >>$NETWORK_USAGE_TEMP_FILE
     sleep 0.850
   done &
 fi
+
+if $NETWORK_TOTAL && [ $APP_NAME == "system" ]; then
+  while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
+    export TIMESTAMP=$(date +%s)
+    dumpsys batterystats --checkin | grep -E ",gn," | awk -F',' '{ system("print -n $TIMESTAMP; print " "_"$5"_"$6"_"$7"_"$8"_"$4) }' >>$NETWORK_USAGE_TEMP_FILE
+    sleep 0.850
+  done &
+fi
+
 NETWORK_USAGE_PID=$!
 
 #--------------------------------- APP STATISTICS ---------------------------------------------------------
 
-echo "-> Wait for the application"
-
-#timeout for 2 minutes
-COUNTER=0
-while (($COUNTER < 600)) && [ -z $(pidof $APP_NAME) ] && [ $(cat $TEST_STATUS_FILE) = "started" ]; do
-  sleep 0.2
-  COUNTER=$(($COUNTER + 1))
-done
-
-if [ $COUNTER = "600" ]; then
-  echo "finished" >$TEST_STATUS_FILE
-  wait "$RAM_USAGE_TOTAL_PID"
-  kill -9 $(pgrep -P $$) 3 &>/dev/null || true
-  echo "-> EXIT after timeout - application is not found"
-  exit
+if [ $APP_NAME != "system" ] ; then 
+  echo "-> Wait for the application"
+  
+  #timeout for 2 minutes
+  COUNTER=0
+  while (($COUNTER < 600)) && [ -z $(pidof $APP_NAME) ] && [ $(cat $TEST_STATUS_FILE) = "started" ]; do
+    sleep 0.2
+    COUNTER=$(($COUNTER + 1))
+  done
+  
+  if [ $COUNTER = "600" ]; then
+    echo "finished" >$TEST_STATUS_FILE
+    wait "$RAM_USAGE_TOTAL_PID"
+    kill -9 $(pgrep -P $$) 3 &>/dev/null || true
+    echo "-> EXIT after timeout - application is not found"
+    exit
+  fi
+  
+  APP_PID=$(pidof $APP_NAME)
+  echo "-> $APP_NAME PID = $APP_PID"
 fi
-
-APP_PID=$(pidof $APP_NAME)
-echo "-> $APP_NAME PID = $APP_PID"
 
 # =============> Get CPU usage statistic for the app
 
-if $CPU_APP; then
+if $CPU_APP && [ $APP_NAME != "system" ]; then
   top -d 1 -b -p $APP_PID | grep --line-buffered -i $APP_NAME | awk '{ system("print -n $(date +%s); print " "_"$9) }' >>$CPU_USAGE_APP_FILE &
 fi
 
 # =============> Get RAM usage statistic for the app (PSS memory and Private memory)
 
-if $RAM_APP; then
+if $RAM_APP && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
     dumpsys meminfo -c $APP_NAME | grep --line-buffered TOTAL | grep -v PSS | awk '{ system("print -n $(date +%s); print " "_"$2"_"$3) }' >>$RAM_USAGE_APP_FILE
     sleep 0.7
@@ -156,7 +170,7 @@ RAM_USAGE_APP_PID=$!
 
 # =============> Frames for the app
 
-if $FRAMES_APP; then
+if $FRAMES_APP && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ] && [ -n "$(pidof $APP_NAME)" ]; do
     dumpsys gfxinfo $APP_NAME | grep --line-buffered -C 3 "50th percentile" >>$FRAMES_APP_FILE
     echo "$(date +%s)\n" >>$FRAMES_APP_FILE
@@ -167,7 +181,7 @@ FRAMES_APP_PID=$!
 
 # =============> BATTERY usage for the app
 
-if $BATTERY_APP; then
+if $BATTERY_APP && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
     dumpsys batterystats --checkin $APP_NAME | grep "$USER_ID,l,pwi,uid" | awk -F',' '{ system("print -n $(date +%s); print " "_"$6) }' >>$BATTERY_APP_FILE
     sleep 0.850
@@ -191,7 +205,7 @@ if $NETWORK_TOTAL; then
   grep "gn" $NETWORK_USAGE_TEMP_FILE | awk -F'_' '{ system("print " $1"_"$2"_"$3"_"$4"_"$5) }' >$NETWORK_USAGE_TOTAL_FILE
 fi
 
-if $NETWORK_APP; then
+if $NETWORK_APP && [ $APP_NAME != "system" ]; then
   grep "nt" $NETWORK_USAGE_TEMP_FILE | awk -F'_' '{ system("print " $1"_"$2"_"$3"_"$4"_"$5) }' >$NETWORK_USAGE_APP_FILE
 fi
 

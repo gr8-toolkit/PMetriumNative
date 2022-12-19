@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
 
 namespace PMetrium.Native.Common.Helpers
 {
@@ -21,6 +20,6 @@ namespace PMetrium.Native.Common.Helpers
             };
         }
 
-        public static string? WorkingDirectory => Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+        public static string? WorkingDirectory => AppContext.BaseDirectory;
     }
 }

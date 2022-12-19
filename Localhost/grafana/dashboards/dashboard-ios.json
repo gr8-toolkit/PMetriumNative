@@ -1,0 +1,1976 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": true,
+        "iconColor": "green",
+        "name": "Test start",
+        "query": "SELECT title, text, tags FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" =~ /.*STARTED/ AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/",
+        "tagsColumn": "tags",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "textColumn": "text"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": true,
+        "iconColor": "red",
+        "name": "Test finished",
+        "query": "SELECT title, text, tags FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" =~ /.*FINISHED/ AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/",
+        "tagsColumn": "tags",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "textColumn": "text"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": false,
+        "iconColor": "blue",
+        "name": "Events",
+        "query": "SELECT text,timestampText FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]' AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND \"text\" =~ /.*$event.*/",
+        "tagsColumn": "timestampText",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "textColumn": "text"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "enable": true,
+        "iconColor": "semi-dark-purple",
+        "name": "ComplexEvents",
+        "query": "SELECT text,timestampText FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]' AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND \"text\" =~ /.*$complexEvent.*/",
+        "tagsColumn": "timestampText",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "textColumn": "text"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 2,
+  "iteration": 1671458673346,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 15,
+      "panels": [],
+      "title": "System metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU - Total"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "CPU - Total",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT percentage FROM \"ios.system.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAN - Total Used"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "RAN - Total Used",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.system.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "RAM",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DISK - read"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "DISK - Read",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.system.disk.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "DISK - Write",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.system.disk.data.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "DISK - Data",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DISK - read"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "DISK - Read",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.system.disk.ops.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "DISK - Write",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.system.disk.ops.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "DISK - Operations",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - Received"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - Sent"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "NETWORK - Received",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.system.network.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "NETWORK - Sent",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.system.network.data.sent\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "NETWORK - Data",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - Received"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - Sent"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "NETWORK - Received",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.system.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "NETWORK - Sent",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.system.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "NETWORK - Packets",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ios.system.fps.count"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FPS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "FPS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.system.fps\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "FPS",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU - Utilization"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "GPU - Utilization",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT  percentage FROM \"ios.system.gpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "GPU",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 17,
+      "panels": [],
+      "title": "Application metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU - App"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "CPU - App",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT percentage FROM \"ios.app.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM - App"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "RAM - App",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.app.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Ram",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - App Received"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - App Sent"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "NETWORK - App Received",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.app.network.data.rx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "NETWORK - App Sent",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT bytes FROM \"ios.app.network.data.tx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "NETWORK - Data",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - App Received"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NETWORK - App Sent"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "NETWORK - App Received",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.app.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "NETWORK - App Sent",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT count FROM \"ios.app.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "NETWORK - Packets",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "pm2022"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": 10000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU - Utilization"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$tag_event",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "pm2022"
+          },
+          "hide": false,
+          "query": "SELECT latency FROM \"ios.events.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND application =~ /^$application$/ AND event =~ /.*$complexEvent.*/ GROUP BY event",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "APPLICATION EVENTS",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SHOW TAG VALUES FROM \"ios.annotations\" WITH KEY = \"space\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Space",
+        "multi": true,
+        "name": "space",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"ios.annotations\" WITH KEY = \"space\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"group\") FROM (SELECT \"group\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Group",
+        "multi": true,
+        "name": "group",
+        "options": [],
+        "query": "SELECT DISTINCT(\"group\") FROM (SELECT \"group\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"label\") FROM (SELECT \"label\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/)   ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Label",
+        "multi": true,
+        "name": "label",
+        "options": [],
+        "query": "SELECT DISTINCT(\"label\") FROM (SELECT \"label\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/)   ",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"iosVersion\") FROM (SELECT \"iosVersion\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "IOS_Version",
+        "multi": true,
+        "name": "iosVersion",
+        "options": [],
+        "query": "SELECT DISTINCT(\"iosVersion\") FROM (SELECT \"iosVersion\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"deviceModel\") FROM (SELECT \"deviceModel\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/) \t\t",
+        "hide": 0,
+        "includeAll": true,
+        "label": "DeviceModel",
+        "multi": true,
+        "name": "deviceModel",
+        "options": [],
+        "query": "SELECT DISTINCT(\"deviceModel\") FROM (SELECT \"deviceModel\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/) \t\t",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"device\") FROM (SELECT \"device\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "device",
+        "options": [],
+        "query": "SELECT DISTINCT(\"device\") FROM (SELECT \"device\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"application\") FROM (SELECT \"application\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Application",
+        "multi": true,
+        "name": "application",
+        "options": [],
+        "query": "SELECT DISTINCT(\"application\") FROM (SELECT \"application\",\"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"text\") FROM (SELECT \"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]')",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Events",
+        "multi": true,
+        "name": "event",
+        "options": [],
+        "query": "SELECT DISTINCT(\"text\") FROM (SELECT \"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]')",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "pm2022"
+        },
+        "definition": "SELECT DISTINCT(\"text\") FROM (SELECT \"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ComplexEvents",
+        "multi": true,
+        "name": "complexEvent",
+        "options": [],
+        "query": "SELECT DISTINCT(\"text\") FROM (SELECT \"text\" FROM \"ios.annotations\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/)",
+        "refresh": 2,
+        "regex": "/(?:.*START\\].|.*END\\].)(\\w.*)/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-12-16T15:57:49.692Z",
+    "to": "2022-12-16T15:58:14.761Z"
+  },
+  "timepicker": {},
+  "timezone": "utc",
+  "title": "PMetrium Native - IOS",
+  "uid": "LqCx-dHVk",
+  "version": 74,
+  "weekStart": "monday"
+}

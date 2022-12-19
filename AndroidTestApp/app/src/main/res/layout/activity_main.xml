@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarSize="10dp"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="406dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:text="PMetrium Native test app"
+        android:textAlignment="center"
+        android:textIsSelectable="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btStartCpu"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="#2CD818"
+        android:text="CPU START"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btStopCpu"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_bias="0.014" />
+
+    <Button
+        android:id="@+id/btRamStart"
+        android:layout_width="155dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="220dp"
+        android:backgroundTint="#009688"
+        android:text="RAM START"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_bias="0.148" />
+
+    <Button
+        android:id="@+id/btRamClear"
+        android:layout_width="155dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="220dp"
+        android:backgroundTint="#FF9100"
+        android:text="RAM Clear"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <Button
+        android:id="@+id/btShowGif"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#8659D6"
+        android:text="Show GIF"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btHideGif"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btEvents"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btTime"
+        android:layout_width="238dp"
+        android:layout_height="61dp"
+        android:backgroundTint="#F8C733"
+        android:text="Get Kyiv time"
+        android:textAllCaps="false"
+        android:textColor="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btRamClear" />
+
+    <Button
+        android:id="@+id/btEvents"
+        android:layout_width="301dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#2196F3"
+        android:text="Generate complicated events"
+        android:textAllCaps="false"
+        android:textColor="#FBFBFB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+    <Button
+        android:id="@+id/btStopCpu"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#F44336"
+        android:text="CPU Clear"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_bias="0.014" />
+
+    <Button
+        android:id="@+id/btHideGif"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#F44336"
+        android:text="Hide GIF"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btEvents"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvResultCpu"
+        android:layout_width="155dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="132dp"
+        android:text="Result:"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btStartCpu"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvRam"
+        android:layout_width="133dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="132dp"
+        android:text="RAM"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btTime"
+        app:layout_constraintStart_toEndOf="@+id/tvResultCpu"
+        app:layout_constraintTop_toBottomOf="@+id/btStartCpu"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="337dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btTime" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="124dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btStartCpu"
+        app:srcCompat="@drawable/pmetriumnativelogo" />
+
+    <ImageView
+        android:id="@+id/imGif"
+        android:layout_width="279dp"
+        android:layout_height="262dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btShowGif" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
