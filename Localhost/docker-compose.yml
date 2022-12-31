@@ -29,7 +29,7 @@ services:
       depends_on:
         - chronograf-pmetrium-native
       ports:
-       - "3700:3000"
+       - "3000:3000"
       volumes:
        - grafana-pmetrium-native:/var/lib/grafana
       environment:

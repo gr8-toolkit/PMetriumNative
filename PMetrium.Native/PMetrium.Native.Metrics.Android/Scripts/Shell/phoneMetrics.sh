@@ -83,6 +83,7 @@ top -n 1 -b -p $$ | grep -i %cpu | grep -i %idle | awk '{ print $1 }' >$CPU_TOTA
 free | grep -i mem | awk '{ print $2 }' >$RAM_TOTAL_FILE
 
 dumpsys batterystats --reset
+sleep 2 # this sleep is needed to avoid issue with network data when batterystats is not reset immediately
 
 if [ $APP_NAME != "system" ]; then
   USER_ID=$(dumpsys package $APP_NAME | grep userId | head -n 1 | cut -b 12-17)
@@ -137,7 +138,7 @@ if [ $APP_NAME != "system" ] ; then
   COUNTER=0
   while (($COUNTER < 600)) && [ -z $(pidof $APP_NAME) ] && [ $(cat $TEST_STATUS_FILE) = "started" ]; do
     sleep 0.2
-    COUNTER=$(($COUNTER + 1))
+    COUNTER=$(($COUNTER + 1)) 
   done
   
   if [ $COUNTER = "600" ]; then

@@ -3,38 +3,107 @@ title: Application events
 sidebar_position: 6
 ---
 
+While PMetrium Native takes care by default mostly about **[Hardware Metrics](./05-pmetrium-metrics-android.md)** there is an option on how to track some events and their timestamps from inside the application under test. Moreover, starting from the PMetrium Native v2.0 we introduced `ComplexEvent` - event that has the START and the END, so we can measure the latency and show you on the Grafana dashboard. Let's look at the details below.
 
+PMetrium Native tracks those events from logs (logcat for Android and standard Logger for IOS). Events are not required for our application to work, without them you will just received hardware metrics.
 
-While PMetrium Native takes care by default mostly about **[Hardware Metrics](./05-pmetrium-metrics-android.md)** there is an option on how to track some events and their timestamps from inside the application under test. Let's take an example of our Parimatch app and see how to track some events.
+## Simple Events
 
-First, you have to make sure that your application under test can write logs into logcat. By default, all release-built applications have logcat turned off. We made an agreement with developers to write application events to logcat. Now it is enough to add only one line of code for one event:
+Simple Event - some event in the code of your application with the name and unix timestamp in ms at the end. 
+
+### Example for Android
+
+PMetrium Native takes logs from logcat and searches events. There are three requirements for log for Android:
+- log should have tag `PMETRIUM_NATIVE`
+- log should have a name, preferable stable name without any changing info
+- log should have a unix timestamp in ms at the end of the name, separated by space
+
+So if log looks like example below PMetrium Native will be able to parse it:
+
+`12-16 16:34:55.596  7106  7106 I PMETRIUM_NATIVE: My super event name 1671201295596`
+
+This log was crated in our test application for Android simply by one line of the code:
 
 ```js
-LogWrapper.d(PERFORMANCE_TESTING, "Some application-side event" + System.currentTimeMillis())
+Log.i("PMETRIUM_NATIVE", "My super event name " + System.currentTimeMillis())
 ```
 
-**where:**
-- `PERFORMANCE_TESTING` - is a required tag for logcat in order to let PMetrium Native know what to search
-- `"Some application-side event"` - whatever human-readable you want to see. 
-	:::caution
-	We strongly recommend you avoid the events description using any changing information (e.g. EventID). In the opposite way, it will slow down the database significantly
-	:::
-- `System.currentTimeMillis()` - the Unix timestamp in milliseconds, which should  be at the end!
+As a result you will see your Simple Event in Grafana dashboard:
 
-:::danger PAY ATTANTION
-In this example `LogWrapper.d` is just a regular method inside of some project. You may use your own method/wrapper and log `level`, it depends on you and your project. PMetrium Native will take those events from logcat with tags `PERFORMANCE_TESTING` of any log level, examples:
+![image](./06-application-events/simple_event_android.jpg)
 
-```bash
-05-17 16:47:16.183 30844 30844 D PERFORMANCE_TESTING: Cold boot Application has started to load at 1652795236183
-05-17 16:47:19.955 30844 30844 D PERFORMANCE_TESTING: Cold boot Application has finished loading at 1652795239955
-05-17 16:47:23.513 30844 30844 D PERFORMANCE_TESTING: Cold boot Application has started to load at 1652795243513
-05-17 16:47:24.763 30844 30844 D PERFORMANCE_TESTING: Top Page has started to load at 1652795244763
-05-17 16:47:28.014 30844 31253 D PERFORMANCE_TESTING: Top Page has been successfully loaded at 1652795248014
-05-17 16:47:42.784 30844 31170 I PERFORMANCE_TESTING: Event has been successfully loaded at 1652795262784
-05-17 16:47:44.649 30844 30844 I PERFORMANCE_TESTING: Event has been successfully showed at 1652795264649
+### Example for IOS
+
+PMetrium Native takes logs for IOS from standard logs mechanism and searches events. There are three requirements for log for IOS:
+- log should have tag `[PMETRIUM_NATIVE]`
+- log should have a name, preferable stable name without any changing info
+- log should have a unix timestamp in ms at the end of the name, separated by space
+
+So if log looks like example below PMetrium Native will be able to parse it:
+
+`Nov 30 17:10:10 PM-Native[633] <Notice>: [PMETRIUM_NATIVE] My super event name 1669821010048`
+
+This log was crated in our test application for IOS simply by one line of the code:
+
+```js
+self.defaultLog.log("[PMETRIUM_NATIVE] My super event name \(self.unixTimestampUtc())")
 ```
-:::
 
-As a result, you will see such a report in Grafana:
+Note: your logs method may look a bit different than we have in our application.
 
-![image](./06-application-events/events.jpg)
+As a result you will see your Simple Event in Grafana dashboard:
+
+![image](./06-application-events/simple_event_ios.jpg)
+
+## Complex Events
+
+Complex Event - it is two simple events that have the same name, but different timestamps. One event is basically means START and the second one the END, so we can measure the latency between START and the END.
+
+Complex Event in terms of requirements and code syntax is almost the same as Simple Event, but with some additional requirements:
+- both events must have the same name after tags and before timestamp
+- first event name must start from `[START]`
+- second event name must start from `[END]`
+
+### Example for Android
+
+So if logs looks like example below for Complex Event PMetrium Native will be able to parse them:
+
+`12-16 16:35:56.188  7381  7381 I PMETRIUM_NATIVE: [START] CPU load 1671201356188`
+
+`12-16 16:36:02.633  7381  7381 I PMETRIUM_NATIVE: [END] CPU load 1671201362633`
+
+These logs were crated in our test application for Android simply by two lines of the code:
+
+```js
+Log.i("PMETRIUM_NATIVE", "[START] Complex Event name " + System.currentTimeMillis())
+
+// some your application logic
+
+Log.i("PMETRIUM_NATIVE", "[END] Complex Event name " + System.currentTimeMillis()) 
+```
+
+As a result you will see your Complex Event in Grafana dashboard:
+
+![image](./06-application-events/complex_event_android.jpg)
+
+### Example for IOS
+
+So if logs looks like example below for Complex Event PMetrium Native will be able to parse them:
+
+`Nov 30 17:10:10 PM-Native[633] <Notice>: [PMETRIUM_NATIVE] [START] Complex Event name 1669821010054`
+
+`Nov 30 17:10:10 PM-Native[633] <Notice>: [PMETRIUM_NATIVE] [END] Complex Event name 1669821010056`
+
+These logs were crated in our test application for Android simply by two lines of the code:
+
+```js
+self.defaultLog.log("[PMETRIUM_NATIVE] [START] Complex Event name \(self.unixTimestampUtc())")
+
+// some your application logic
+
+self.defaultLog.log("[PMETRIUM_NATIVE] [END] Complex Event name \(self.unixTimestampUtc())")
+```
+
+As a result you will see your Complex Event in Grafana dashboard:
+
+![image](./06-application-events/complex_event_ios.jpg)

@@ -1,81 +1,112 @@
 ---
-title: PMetrium Native API
+title: API
 sidebar_position: 4
 ---
 
-PMetrium Native provides three endpoints that are used to control the execution of performance tests.
+PMetrium Native supports Swagger UI available by `http://localhost:7777/swagger/index.html`
 
-### `/Start`
+### GET `/HealthCheck/Android`
 
-**Start** endpoint is responsible for sending a signal to the PMetrium Native framework to start a performance test pushing scripts to the device and executing them. Example:
+Endpoint allows us to verify that PMetrium Native Host has been started successfully and that we could execute performance tests for Android. Example:
 
 ```bash
-> curl -G -d "device=YourAndroidDeviceName" -d "app=com.parimatch.ukraine" http://localhost:7777/Start
+> curl http://localhost:7777/HealthCheck/Android
+```
+    
+### GET `/HealthCheck/IOS`
+
+Endpoint allows us to verify that PMetrium Native Host has been started successfully and that we could execute performance tests for IOS. Example:
+
+```bash
+> curl http://localhost:7777/HealthCheck/IOS
 ```
 
-:::important
-**Start** endpoint requires two parameters to be used: **device** and **app**.
-:::
+### GET `/Android/Start`
 
-Also, there are multiple **optional parameters** that you could use: <br/>
-- `cpuApp=[string]`. Available options: `yes`, `no`
-- `cpuTotal=[string]`. Available options: `yes`, `no`
-- `ramTotal=[string]`. Available options: `yes`, `no`
-- `ramApp=[string]`. Available options: `yes`, `no`
-- `networkApp=[string]`. Available options: `yes`, `no`
-- `batteryApp=[string]`. Available options: `yes`, `no`
-- `framesApp=[string]`. Available options: `yes`, `no`
+Endpoint is responsible for sending a signal to the PMetrium Native framework to start a performance test pushing scripts to the device and executing them. Example:
 
-More about **[PMetrium Native metrics](./05-pmetrium-metrics-android.md)**.
-Example of disabling `cpuApp` metric:
 ```bash
-> curl -G -d "device=YourAndroidDeviceName" -d "cpuApp=no" -d "app=com.parimatch.ukraine" http://localhost:7777/Start
+> curl -G  -d "device=YourAndroidDeviceName" -d "applicationName=com.example.pmnative" http://localhost:7777/Android/Start
+```
+
+| Parameter name  | Type   | Required |
+|-----------------|--------|----------|
+| device          | string | yes      |
+| applicationName | string | no       |
+| cpuApp          | bool   | no       |
+| cpuTotal        | bool   | no       |
+| ramTotal        | bool   | no       |
+| ramApp          | bool   | no       |
+| networkTotal    | bool   | no       |
+| networkApp      | bool   | no       |
+| batteryApp      | bool   | no       |
+| framesApp       | bool   | no       |
+| space           | string | no       |
+| group           | string | no       |
+| label           | string | no       |
+
+Example of disabling `cpuTotal` metric:
+```bash
+> curl -G  -d "device=YourAndroidDeviceName" -d "applicationName=com.example.pmnative" -d "cpuTotal=false" http://localhost:7777/Android/Start
 ```
 
 :::caution 
-By default, **all metrics** will be gathered. You could use optional parameters to explicitly
-turn off specified metrics.
+By default, **all metrics** will be gathered. You could use optional parameters to explicitly turn off specified metrics.
 :::
 
-In case you would like to add some tags for additional quering your metrics in Grafana you may use three more parameters in your http request:
-- `space=VALUE`
-- `group=VALUE`
-- `label=VALUE`
-
-**Note:** We recommend to use VALUE as a space free string, examples: "CamelCase","Under_Line_Score"
+In case you would like to add some tags for additional quering your metrics in Grafana you may use next optional parameters:
+- `space`
+- `group`
+- `label`
 
 Example:
 
 ```bash
 > curl -G \
     -d "device=YourAndroidDeviceName" \
-	-d "app=com.parimatch.ukraine" \ 
+	-d "applicationName=com.example.pmnative" \ 
 	-d "space=Ukraine" \ 
 	-d "group=Kiev" \ 
 	-d "label=GloryToUkraine" \ 
-	http://localhost:7777/Start
+	http://localhost:7777/Android/Start
 ```
 
 Result:
 
 ![image](./04-pmetrium-api/tags.jpg)
 
-### `/Stop`
+### GET `/Android/Stop`
 
-**Stop** endpoint is responsible for sending a signal to the PMetrium Native framework that the performance test has ended and the framework is ready to proceed with parsing of gathered metrics. Example: 
+Endpoint is responsible for sending a signal to the PMetrium Native framework that the performance test has ended and the framework is ready to proceed with parsing of gathered metrics. Example: 
 
 ```bash
-> curl -G -d "device=YourAndroidDeviceName" http://localhost:7777/Stop
+> curl -G -d "device=YourAndroidDeviceName" http://localhost:7777/Android/Stop
 ```
 
-:::important
-**Stop** endpoint requires to use **device** parameter only.
-:::
+### GET `/IOS/Start`
 
-### `/Healthcheck`
-
-**Healthcheck** endpoint allows us to verify that PMetrium Native Host has been started successfully and that we could execute performance tests. Example:
+Endpoint is responsible for sending a signal to the PMetrium Native framework to start a performance test for IOS device. Example:
 
 ```bash
-> curl http://localhost:7777/HealthCheck
+> curl -G  -d "device=YourIOSDeviceName" -d "applicationName=PM-Native" http://localhost:7777/IOS/Start
+```
+
+| Parameter name  | Type   | Required |
+|-----------------|--------|----------|
+| device          | string | yes      |
+| applicationName | string | no       |
+| space           | string | no       |
+| group           | string | no       |
+| label           | string | no       |
+
+`space`, `group` and `label` have the same meaning as for Android and will affect only IOS metrics and Grafana Dashboard. 
+
+Please also note, that `applicationName` here means `udid` of the IOS device
+
+### GET `/IOS/Stop`
+
+Endpoint is responsible for sending a signal to the PMetrium Native framework that the performance test has ended and the framework is ready to proceed with parsing metrics. Example:
+
+```bash
+> curl -G -d "device=YourIOSDeviceName" http://localhost:7777/IOS/Stop
 ```

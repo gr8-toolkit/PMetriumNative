@@ -6,7 +6,7 @@ sidebar_position: 0
 ```mermaid
     flowchart TD
     id0[Workstation]:::separateNodeStyle <--> |Appium Server| id1[Functional tests]:::separateNodeStyle
-    id0 --> |ADB| id2[Android device]:::separateNodeStyle
+    id0 --> |ADB/xctrace| id2[Android/IOS device]:::separateNodeStyle
     id0 <--> id3[PMetrium Native]:::separateNodeStyle
 
     style id1 stroke-dasharray: 10 5, stroke-width:2px
@@ -34,3 +34,7 @@ Android Device Bridge (ADB) is used to establish a connection between the Androi
 The whole process of Android device management (so-called device farm) is out of scope for PMetrium Native. <br/>
 Thus, this won't be covered in our documentation.
 :::
+
+### xctrace
+
+xctrace - an xcode cli tool to interact with IOS device in order to collect performance metrics
