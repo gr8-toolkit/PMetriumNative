@@ -98,7 +98,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} PMetrium Native Docs, PM. Built with Docusaurus.`,
+        copyright: `Copyright © 2022-${new Date().getFullYear()} PMetrium Native Docs, PM. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

@@ -12,6 +12,9 @@ using static PMetrium.Native.Common.Helpers.PlatformOSHelper;
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables();
 Config.Instance = builder.Configuration.Get<ConfigModel>();
 
 var loggerConfiguration = new LoggerConfiguration()
