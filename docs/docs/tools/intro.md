@@ -5,7 +5,7 @@ sidebar_position: 1
 
 ## Problem
 
-Initially, there was no performance testing of mobile native applications in PM.
+Initially, there was no performance testing of mobile native applications in PariMatch.
 
 The functionality of our application is constantly growing, with more and more features. Assuming this can affect the application's performance, we decided to find a way to test it.
 
@@ -32,31 +32,28 @@ The functionality of our application is constantly growing, with more and more f
 
 After multiple various options tried, we've come up with the final approach on how we will conduct such testing.
 
-- We developed a cross-platform tool - PMetrium Native (supports Android only so far) 
+- We developed a cross-platform tool - PMetrium Native
 - PMetrium Native works as a web host and has some endpoints 
 - PMetrium Native does not require any additional functional test settings
 - PMetrium Native can be used together with autotests or with manual interactions
-- PMetrium Native can gather both hardware and application* metrics
-- PMetrium Native can work with both rooted and non-rooted Android devices (root gives more metrics)
-- PMetrium Native can work with real devices and emulators via ADB (Android Device Bridge)
-- PMetrium Native based on shell scripts to interact and gather metrics from the device
-- We use InfluxDB to write metrics and Grafana to visualize them.	
-
-\* - require additional line of code on the application side and enabled Logcat (more details in **[Application events](./pmetrium-native/architecture/03-development/06-application-events.md)**)
+- PMetrium Native can gather both hardware and application metrics
+- PMetrium Native can work with real devices and emulators
+- PMetrium Native based on shell scripts to interact and gather metrics from the Android device
+- PMetrium Native based on xctrace cli tool from xcode to interact and gather metrics from the IOS device
+- We use InfluxDB to write metrics and Grafana to visualize them.
 
 ### Pros
 
-**\+** The main benefit of such an approach is that we have a pretty decent amount of versatility when it comes to what measure and how.<br/>
-**\+** Also, due to the code-based solution, it's possible to extend our solution with additional functionality if needed.<br/>
-**\+** Existed functional autotests are not required to be changed
+- The main benefit of such an approach is that we have a pretty decent amount of versatility when it comes to what measure and how.
+- Also, due to the code-based solution, it's possible to extend our solution with additional functionality if needed.
+- Existed functional autotests are not required to be changed
 
 ### Cons
 
-**\-** Since we do not use any ready solution, it might be hard for any new person to understand how our solution works, but we try to keep it as simple as possible :) <br/>
-**\-** Most of the metrics we gather, are being gathered from the shell scripts <br/>
-**\-** While a rooted device is not required but without a root, it won't be possible to gather multiple hardware-related metrics. <br/>
-**\-** To track some events and their timestamps you have to add some code on the application side, which requires extra work for you <br/>
-**\-** Shell script execution utilizes device resources as well.
+- Since we do not use any ready solution, it might be hard for any new person to understand how our solution works, but we try to keep it as simple as possible :)
+- Most of the metrics we gather for Android devices, are being gathered from the shell scripts
+- To track some events and their timestamps you have to add some code on the application side, which requires extra work for you
+- Shell scripts execution for Android utilizes device resources as well.
 
 ### Why PMetrium Native
 

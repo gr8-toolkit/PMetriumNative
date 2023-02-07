@@ -1,5 +1,7 @@
 ﻿#!/bin/sh
 
+dumpsys batterystats --reset
+
 cd /sdcard/metrics
 
 for i in "$@"; do
@@ -82,8 +84,6 @@ echo '' >$BATTERY_APP_FILE
 top -n 1 -b -p $$ | grep -i %cpu | grep -i %idle | awk '{ print $1 }' >$CPU_TOTAL_FILE
 free | grep -i mem | awk '{ print $2 }' >$RAM_TOTAL_FILE
 
-dumpsys batterystats --reset
-
 if [ $APP_NAME != "system" ]; then
   USER_ID=$(dumpsys package $APP_NAME | grep userId | head -n 1 | cut -b 12-17)
 fi
@@ -109,6 +109,8 @@ fi
 RAM_USAGE_TOTAL_PID=$!
 
 # =============> Get NETWORK usage statistic for the whole system and the APP
+
+dumpsys batterystats --reset
 
 if $NETWORK_TOTAL && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
@@ -137,7 +139,7 @@ if [ $APP_NAME != "system" ] ; then
   COUNTER=0
   while (($COUNTER < 600)) && [ -z $(pidof $APP_NAME) ] && [ $(cat $TEST_STATUS_FILE) = "started" ]; do
     sleep 0.2
-    COUNTER=$(($COUNTER + 1))
+    COUNTER=$(($COUNTER + 1)) 
   done
   
   if [ $COUNTER = "600" ]; then

@@ -1,5 +1,5 @@
 ---
-title: PMetrium Native Config
+title: Config
 sidebar_position: 3
 ---
 
@@ -8,14 +8,13 @@ PMetrium Native Host project contains an **appsettings.json** file that allows y
 ```json
 {
   "LogLevel": "Information",
+  "HostPort": 7777,
   "InfluxDB": {
     "Url": "http://localhost:8086",
     "DataBaseName": "PMetriumNative",
     "User": "admin",
     "Password": "admin"
-  },
-  "WireMockPort": 7777,
-  "AppEventsTimeout" : "00:00:00"
+  }
 }
 ```
 
@@ -44,10 +43,6 @@ The default log level is set to **Information**.
 If you will decide to change the database name, please, ensure that it will match with your Grafana dashboard datasource.
 :::
 
-### `WireMockPort`
+### `HostPort`
 
-PMetrium Native is based on WireMock as a web host instead of a regural web application, that's why this option in settings is called WireMockPort - the port on which the PMetrium Native Host will be running. There was a reason why we have chosen a WireMock, it allows us to run more smoothly new processes on the Workstation.
-
-### `AppEventsTimeout`
-
-Value responsible for the PMetrium Native to wait after the last functional step was executed.
+HTTP port of PMetrium Native to work on.

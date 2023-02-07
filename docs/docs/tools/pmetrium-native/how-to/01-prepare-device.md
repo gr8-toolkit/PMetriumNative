@@ -23,17 +23,30 @@ sidebar_position: 1
 	Note: if you do not see your device, please look at the sources in the prerequisites
 3. Now your devices is ready to work with PMetrium Native. You can run your first performance test for your native app
 
-### Root device (optional)
-
-- PMetrium Native may work with both Root and NOT Root devices
-- PMetrium Native detects automatically whether the device has Root access or not
-- Root devices allow PMetrium Native to collect more hardware metrics, see the full **[list of supported metrics](../architecture/03-development/05-pmetrium-metrics-android.md)** 
-
-:::caution
-- There are a lot of different Android devices on the market. It's worth mentioning that not all of them are possible to root.
-- Please search the instruction on the internet for your specific device
-:::
-
 :::tip
 There is an option to use an Android emulator, but we strongly recommend using only REAL devices.
 :::
+
+## IOS
+
+### Prerequisites
+
+- Workstation has XCode with cli tool `xctrace`
+- You have a real IOS device
+- Workstation has installed `libimobiledevice`, more details on **[GitHub](https://github.com/libimobiledevice/libimobiledevice)**
+
+### Steps
+1. Connect your device to the Workstation 
+2. Check that your device is visible for your Workstation and take their id: <br/>
+   ```bash
+   > xctrace list devices
+   ```
+
+   ![image](./01-prepare-device/ios_devices.jpg)
+
+3. Now your devices is ready to work with PMetrium Native. You can run your first performance test for your native app
+
+:::caution
+PMetrium Native will not be able to work with IOS Simulators. The reason for that is missing the ability for some templates of XCode Instruments to work on Simulators.
+:::
+

@@ -117,9 +117,7 @@ public class IOSMetricsManager : IIOSMetricsManager
         
         await deviceContext.Process.WaitForExitAsync(token);
         await deviceContext.EventsProcess.WaitForExitAsync(token);
-        
-        Log.Information($"[IOS: {device}] IOSMetricsManager - measurement has stopped");
-        
+
         var xmlTraceToc = await CreateProcess(
             $"xctrace",
             $"export --input {device}.trace --toc").StartForDeviceAndGetOutput(device, token);
@@ -166,6 +164,8 @@ public class IOSMetricsManager : IIOSMetricsManager
         await CreateProcess($"rm", $"-rf process-{device}.xml").StartProcessAndWait();
         await CreateProcess($"rm", $"-rf fps-{device}.xml").StartProcessAndWait();
         await CreateProcess($"rm", $"-rf network-{device}.xml").StartProcessAndWait();
+        
+        Log.Information($"[IOS: {device}] IOSMetricsManager - measurement has stopped");
 
         return iosPerformanceResults;
     }

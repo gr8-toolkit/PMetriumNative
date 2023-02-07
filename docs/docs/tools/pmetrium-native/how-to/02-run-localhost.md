@@ -3,33 +3,37 @@ title: Run test on Localhost
 sidebar_position: 2
 ---
 
-## Prerequisites
-
-It's expected that you've already completed the steps described in **[Prepare Workstation](./00-prepare-workstation.md)** and **[Prepare Device](./01-prepare-device.md)**. Apart from the prerequisites described in that articles, you may need the next items for autotest:
-- installed Node.js
-- installed Appium server
-- you have any functional test to run (manual or automated)
-- you have `curl` available in your CLI
-
 ### Run performance test
 
-0. Make sure you've completed all the **[Prerequisites](#prerequisites)**
-1. Get the name (or IP address) of the phone device with the help of adb:
+0. It's expected that you've already completed the steps described in **[Prepare Workstation](./00-prepare-workstation.md)** and **[Prepare Device](./01-prepare-device.md)**
+1. Get unic identifier of your device:
 
-    ``` bash
-    adb devices
+    ``` bash title=Android
+    > adb devices
     ```
-
     ![image](./02-run-localhost/adb-devices.jpg)
-2. You have to know the native app name as it's going to use as a parameter for PMetrium Native endpoint. For example, `com.parimatch.ukraine` in our case. You may ask your developers to help you with this
+    
+    ``` bash title=IOS 
+    > xctrace list devices
+    ```
+    ![image](./01-prepare-device/ios_devices.jpg)
+
+    
+2. You have to know the native app name as it's going to be used as a parameter for PMetrium Native endpoint. For example, `com.example.pmnative` for Android and `PM-Native` for IOS in our case. You may ask your developers to help you with this.
 
 3. Start performance metrics measurement:
 
-    ```bash
-    curl -G -d "device=192.168.0.103:5555" -d "app=com.parimatch.ukraine" http://localhost:7777/Start
+    ```bash title=Android
+    curl -G -d "device=192.168.0.103:5555" -d "applicationName=com.example.pmnative" http://localhost:7777/Android/Start
     ```
-
-    where: `device` and `app` are two **required** parameters for the request
+   
+    ```bash title=IOS
+    curl -G -d "device=d9154d4020484cedde651473b2ae3b87c42ab8c1" -d "applicationName=PM-Native" http://localhost:7777/IOS/Start
+    ```
+    :::danger Please note
+    From time to time `xctrace` cannot find device connected to your machine on the first try. You may try to repeat the call to `http://localhost:7777/IOS/Start`
+    :::
+  
     
     :::tip
     Read more about **[PMetrium Native Api](../architecture/03-development/04-pmetrium-api.md)**
@@ -43,21 +47,27 @@ It's expected that you've already completed the steps described in **[Prepare Wo
 
 5. Once the functional test is over you have to run the next command in order to stop measurement:
 
-    ```bash
-    curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Stop
+    ```bash title=Android
+    curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Android/Stop
+    ```
+   
+    ```bash title=IOS
+    curl -G -d "device=d9154d4020484cedde651473b2ae3b87c42ab8c1" http://localhost:7777/IOS/Stop
     ```
 
-    where: `device` is the **required** parameter for the request
+    :::danger Please note
+    From time to time `xctrace` cannot finish the recording and save results to `.trace` file. In this case you need to repeat your test.
+    :::
 
     :::tip
     All three commands may be organized into bat or shell script not to be called manually, for example, bat file:
 
     ```bash title=demo.bat
-    curl -G -d "device=192.168.0.103:5555" -d "app=com.parimatch.ukraine" http://localhost:7777/Start
+    curl -G -d "device=192.168.0.103:5555" -d "applicationName=com.example.pmnative" http://localhost:7777/Android/Start
 
     dotnet test .\src\PMetrium.Native\FunctionalTests  --filter ColdStart
 
-    curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Stop
+    curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Android/Stop
     ```
     :::
 
@@ -69,9 +79,9 @@ It's expected that you've already completed the steps described in **[Prepare Wo
     - Password: **admin**
     :::
 
-    ![image](./02-run-localhost/dashboard.jpg)
+    ![image](./00-prepare-workstation/dashboard.jpg)
 
-#### Run from code
+### Run from code
 Using `CURL` is not a requirement. You can just integrate the interaction with the PMetrium Native server into your functional tests framework. Let's look at the example of such functional autotest for native application on C# (programming language here does not matter):
 
 ```csharp
@@ -104,10 +114,10 @@ public class AndroidTests
         var query = new Dictionary<string, string>()
         {
             ["device"] = "192.168.0.103:5555",
-            ["app"] = "com.parimatch.ukraine"
+            ["applicationName"] = "com.example.pmnative"
         };
 
-        var uri = QueryHelpers.AddQueryString("http://localhost:7777/Start", query);
+        var uri = QueryHelpers.AddQueryString("http://localhost:7777/Android/Start", query);
         await _httpClient.GetAsync(uri);
     }
 
@@ -119,7 +129,7 @@ public class AndroidTests
             ["device"] = "192.168.0.103:5555",
         };
 
-        var uri = QueryHelpers.AddQueryString("http://localhost:7777/Stop", query);
+        var uri = QueryHelpers.AddQueryString("http://localhost:7777/Android/Stop", query);
         await _httpClient.GetAsync(uri);
     }
 

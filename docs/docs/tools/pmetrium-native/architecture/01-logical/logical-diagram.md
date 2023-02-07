@@ -82,12 +82,6 @@ In case you work on localhost you need only few things to be done:
 
 In case you want to run performance testing on CI you need to take care of device management also known as device farm, which is out of scope for PMetrium Native
 
-:::caution PAY ATTENTION
-
-PMetrium Native supports only Android devices so far
-
-:::
-
 ### Time-series database
 
 The database is used only to store collected metrics from the device (hardware and application-side metrics). For PMetrium Native we use the InfluxDB time-series database
