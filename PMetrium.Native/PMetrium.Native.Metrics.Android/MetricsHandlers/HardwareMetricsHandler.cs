@@ -54,7 +54,7 @@ internal class HardwareMetricsHandler
             var cpuUsageTotalRaw = (await ExtractDataFromFileOnPhone("cpu_usage_total.txt", token))
                 .Replace("%idle", "", true, CultureInfo.CurrentCulture);
             var cpuUsageAppRaw = await ExtractDataFromFileOnPhone("cpu_usage_app.txt", token);
-            var cpuTotal = double.Parse(cpuTotalRaw);
+            var cpuTotal = double.Parse(cpuTotalRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
             var points = new List<PointData>();
             var cpuUsageTotalMetrics = ParseOneMetric(cpuUsageTotalRaw.Split("\r\n"));
             var cpuUsageTotalForStatistic = new List<double>();
@@ -135,7 +135,7 @@ internal class HardwareMetricsHandler
         try
         {
             var ramTotalRaw = await ExtractDataFromFileOnPhone("ram_total.txt", token);
-            var ramTotal = double.Parse(ramTotalRaw);
+            var ramTotal = double.Parse(ramTotalRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
             var ramUsageTotalRaw = await ExtractDataFromFileOnPhone("ram_usage_total.txt", token);
             var ramUsageAppRaw = await ExtractDataFromFileOnPhone("ram_usage_app.txt", token);
             var points = new List<PointData>();
@@ -796,7 +796,7 @@ internal class HardwareMetricsHandler
             if (metricsList.Count != 7) continue;
 
             var timestamp = metricsList.Single(x => long.TryParse(x, out _));
-            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(timestamp));
+            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(timestamp,NumberStyles.Any, CultureInfo.InvariantCulture));
 
             var firstMetric = double.Parse(
                 metricsList.Single(x => x.Contains("frames rendered"))
@@ -829,7 +829,7 @@ internal class HardwareMetricsHandler
                 .Replace("99th percentile: ", "")
                 .Replace("ms", ""), NumberStyles.Any, CultureInfo.InvariantCulture);
 
-            result.Add((dateTime, firstMetric, double.Parse(secondMetric), thirdMetric, fourthMetric, fifthMetric,
+            result.Add((dateTime, firstMetric, double.Parse(secondMetric, NumberStyles.Any, CultureInfo.InvariantCulture), thirdMetric, fourthMetric, fifthMetric,
                 sixthMetric));
         }
 
@@ -870,7 +870,7 @@ internal class HardwareMetricsHandler
 
             if (splitResult.Length != 2) continue;
 
-            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0]));
+            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0],NumberStyles.Any, CultureInfo.InvariantCulture));
             var firstMetric = double.Parse(splitResult[1], NumberStyles.Any, CultureInfo.InvariantCulture);
 
             result.Add((dateTime, firstMetric));
@@ -890,7 +890,7 @@ internal class HardwareMetricsHandler
 
             if (splitResult.Length != 3) continue;
 
-            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0]));
+            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0], NumberStyles.Any, CultureInfo.InvariantCulture));
             var firstMetric = double.Parse(splitResult[1], NumberStyles.Any, CultureInfo.InvariantCulture);
             var secondMetric = double.Parse(splitResult[2], NumberStyles.Any, CultureInfo.InvariantCulture);
 
@@ -915,7 +915,7 @@ internal class HardwareMetricsHandler
 
             if (splitResult.Length != 5) continue;
 
-            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0]));
+            var dateTime = DateTime.UnixEpoch.AddSeconds(long.Parse(splitResult[0], NumberStyles.Any, CultureInfo.InvariantCulture));
             var firstMetric = double.Parse(splitResult[1], NumberStyles.Any, CultureInfo.InvariantCulture);
             var secondMetric = double.Parse(splitResult[2], NumberStyles.Any, CultureInfo.InvariantCulture);
             var thirdMetric = double.Parse(splitResult[3], NumberStyles.Any, CultureInfo.InvariantCulture);

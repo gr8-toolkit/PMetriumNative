@@ -18,7 +18,7 @@ sidebar_position: 4
 
 1. Copy a .tar.gz archive with single executable file for PMetrium Native (plus some additional files which come together) to the runner Workstation. Example with the `curl`:
 	```bash
-	> curl -LJO https://github.com/parimatch-tech/PMetriumNative/raw/main/PackageRegistry/PMetriumNative.osx-arm64.v2.0.tar.gz
+	> curl -LJO https://github.com/parimatch-tech/PMetriumNative/raw/main/PackageRegistry/PMetriumNative.osx-arm64.v2.1.tar.gz
 	```
 
 	Where:
@@ -27,8 +27,8 @@ sidebar_position: 4
 	- `v2.0` - version of the ready build package, see **[the full list](https://github.com/parimatch-tech/PMetriumNative/tree/main/PackageRegistry)**
 2. Extract archive, open folder and run PMetrium Native server as a separate process on the runner. You may add some additional settings to it throught **[PMetrium Native config](../architecture/03-development/03-pmetrium-config.md)**. For example:
 	```bash
-	> tar -xzf PMetriumNative.osx-arm64.v2.0.tar.gz --directory ./PMetriumNative.osx-arm64.v2.0
-	> cd ./PMetriumNative.osx-arm64.v2.0
+	> tar -xzf PMetriumNative.osx-arm64.v2.1.tar.gz --directory ./PMetriumNative.osx-arm64.v2.1
+	> cd ./PMetriumNative.osx-arm64.v2.1
 	> ./PMetrium.Native.Host &
 	```
 	& - move the process to the background on Linux-based runners
@@ -52,7 +52,6 @@ Now you just need to call PMetrium Native endpoint before functional test to sta
 > curl -G -d "device=192.168.0.103:5555" http://localhost:7777/Android/Stop
 ```
 
-Please note that the command `dotnet test ./src/PMetrium.Native/FunctionalTests  --filter ColdStart` is just an example here for the functional test. Also see **[PMetrium Native API](../architecture/03-development/04-pmetrium-api.md)**
 
 :::tip
 You may handle the interaction with the PMetrium Native server from inside of the functional tests framework, in that case, it would be much easier to run tests, see the **[example](./02-run-localhost.md#run-from-code)**

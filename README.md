@@ -9,7 +9,7 @@ Key facts about the instrument:
 - PMetrium Native works as web server on the host machine with direct connections to real devices. Therefor PMetrium Native provides you a [RESTful API](https://parimatch-tech.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-api) for interactions
 - PMetrium Native stores their [metrics](https://parimatch-tech.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-metrics-android) in InfluxDB
 - PMetrium Native visualizes their metrics with Grafana Dashboard, which is connected to InfluxDB
-- PMetrium Native v.2.0 supports Android and IOS platforms
+- PMetrium Native v.2.1 supports Android and IOS platforms
 - PMetrium Native does not require integration into the source code of the native application
 
 The idea is to measure performance of the native application and the system as simple as possible:

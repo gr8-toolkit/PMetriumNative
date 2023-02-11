@@ -127,19 +127,19 @@ You only need to download the ready .tar.gz with executable files inside for you
 
 Exemple with the `curl`:
 ```bash
-> curl -LJO https://github.com/parimatch-tech/PMetriumNative/raw/main/PackageRegistry/PMetriumNative.osx-arm64.v2.0.tar.gz
+> curl -LJO https://github.com/parimatch-tech/PMetriumNative/raw/main/PackageRegistry/PMetriumNative.osx-arm64.v2.1.tar.gz
 ```
 
 Where:
 - `win-x86` - one of the target OS architectures. Available: 
     - `win-x86`, `win-x64`, `win-arm`, `win-arm64`, `osx-x64`, `osx-arm64`, `linux-x64`, `linux-arm`
-- `v2.0` - version of the ready build package, see **[the full list](https://github.com/parimatch-tech/PMetriumNative/tree/main/PackageRegistry)**. The older versions please look at other branches.
+- `v2.1` - version of the ready build package, see **[the full list](https://github.com/parimatch-tech/PMetriumNative/tree/main/PackageRegistry)**. The older versions please look at other branches.
 
 Extract archive, open folder and run PMetrium Native server as a separate process. You may add some additional settings to it throught **[PMetrium Native config](../architecture/03-development/03-pmetrium-config.md)**. For example:
 	
 ```shell
-> tar -xzf PMetriumNative.osx-arm64.v2.0.tar.gz --directory ./PMetriumNative.osx-arm64.v2.0
-> cd ./PMetriumNative.osx-arm64.v2.0
+> tar -xzf PMetriumNative.osx-arm64.v2.1.tar.gz --directory ./PMetriumNative.osx-arm64.v2.1
+> cd ./PMetriumNative.osx-arm64.v2.1
 > ./PMetrium.Native.Host &
 ```
 & - moves the process to the background on Linux-based runners
