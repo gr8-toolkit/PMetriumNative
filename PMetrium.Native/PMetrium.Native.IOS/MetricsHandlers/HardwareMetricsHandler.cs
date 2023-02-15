@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Globalization;
+using System.Xml;
 using InfluxDB.Client.Writes;
 using PMetrium.Native.Common.Helpers;
 using PMetrium.Native.IOS.Contracts;
@@ -70,7 +71,7 @@ internal class HardwareMetricsHandler
 
                 if (rawCpu != null)
                 {
-                    var cpu = Math.Round(Double.Parse(rawCpu), 2);
+                    var cpu = Math.Round(double.Parse(rawCpu,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     cpuStatistic.Add(cpu);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.cpu",
@@ -84,7 +85,7 @@ internal class HardwareMetricsHandler
 
                 if (ramRaw != null)
                 {
-                    var ram = long.Parse(ramRaw);
+                    var ram = long.Parse(ramRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     ramStatistic.Add(ram);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.ram",
@@ -99,7 +100,7 @@ internal class HardwareMetricsHandler
 
                 if (diskReadBytesPerSecRaw != null)
                 {
-                    var diskReadBytesPerSec = long.Parse(diskReadBytesPerSecRaw);
+                    var diskReadBytesPerSec = long.Parse(diskReadBytesPerSecRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     diskReadBytesPerSecStatistic.Add(diskReadBytesPerSec);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.disk.data.read",
@@ -114,7 +115,7 @@ internal class HardwareMetricsHandler
 
                 if (diskWrittenBytesPerSecRaw != null)
                 {
-                    var diskWrittenBytesPerSec = long.Parse(diskWrittenBytesPerSecRaw);
+                    var diskWrittenBytesPerSec = long.Parse(diskWrittenBytesPerSecRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     diskWrittenBytesPerSecStatistic.Add(diskWrittenBytesPerSec);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.disk.data.written",
@@ -129,7 +130,7 @@ internal class HardwareMetricsHandler
 
                 if (diskReadsPerSecondRaw != null)
                 {
-                    var diskReadsPerSecond = Math.Round(Double.Parse(diskReadsPerSecondRaw), 2);
+                    var diskReadsPerSecond = Math.Round(double.Parse(diskReadsPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     diskReadsPerSecondStatistic.Add(diskReadsPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.disk.ops.read",
@@ -144,7 +145,7 @@ internal class HardwareMetricsHandler
 
                 if (diskWrittenPerSecondRaw != null)
                 {
-                    var diskWrittenPerSecond = Math.Round(Double.Parse(diskWrittenPerSecondRaw), 2);
+                    var diskWrittenPerSecond = Math.Round(double.Parse(diskWrittenPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     diskWritesPerSecondStatistic.Add(diskWrittenPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.disk.ops.written",
@@ -159,7 +160,7 @@ internal class HardwareMetricsHandler
 
                 if (networkDataReceivedPerSecondRaw != null)
                 {
-                    var networkDataReceivedPerSecond = long.Parse(networkDataReceivedPerSecondRaw);
+                    var networkDataReceivedPerSecond = long.Parse(networkDataReceivedPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     networkDataReceivedPerSecondStatistic.Add(networkDataReceivedPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.network.data.read",
@@ -174,7 +175,7 @@ internal class HardwareMetricsHandler
 
                 if (networkDataSentPerSecondRaw != null)
                 {
-                    var networkDataSentPerSecond = long.Parse(networkDataSentPerSecondRaw);
+                    var networkDataSentPerSecond = long.Parse(networkDataSentPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     networkDataSentPerSecondStatistic.Add(networkDataSentPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.network.data.sent",
@@ -189,7 +190,7 @@ internal class HardwareMetricsHandler
 
                 if (networkPacketsInPerSecondRaw != null)
                 {
-                    var networkPacketsInPerSecond = Math.Round(double.Parse(networkPacketsInPerSecondRaw), 2);
+                    var networkPacketsInPerSecond = Math.Round(double.Parse(networkPacketsInPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     networkPacketsInPerSecondStatistic.Add(networkPacketsInPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.network.packets.in",
@@ -204,7 +205,7 @@ internal class HardwareMetricsHandler
 
                 if (networkPacketsOutPerSecondRaw != null)
                 {
-                    var networkPacketsOutPerSecond = Math.Round(double.Parse(networkPacketsOutPerSecondRaw), 2);
+                    var networkPacketsOutPerSecond = Math.Round(double.Parse(networkPacketsOutPerSecondRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     networkPacketsOutPerSecondStatistic.Add(networkPacketsOutPerSecond);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.network.packets.out",
@@ -385,7 +386,7 @@ internal class HardwareMetricsHandler
 
                 if (fpsRaw != null)
                 {
-                    var fps = Math.Round(double.Parse(fpsRaw), 2);
+                    var fps = Math.Round(double.Parse(fpsRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     fpsStatistic.Add(fps);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.fps",
@@ -399,7 +400,7 @@ internal class HardwareMetricsHandler
 
                 if (gpuRaw != null)
                 {
-                    var gpu = Math.Round(double.Parse(gpuRaw), 2);
+                    var gpu = Math.Round(double.Parse(gpuRaw,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     gpuStatistic.Add(gpu);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.system.gpu",
@@ -481,14 +482,14 @@ internal class HardwareMetricsHandler
                     .Text;
                 var protocol = metric.Find(x => x.MetricType == ProcessNetworkMetrics.Protocol)?.MetricData.Text;
                 var bytesInRaw = metric.Find(x => x.MetricType == ProcessNetworkMetrics.BytesInPerSec)?.MetricData.Text;
-                long bytesIn = string.IsNullOrEmpty(bytesInRaw) ? 0 : long.Parse(bytesInRaw);
+                long bytesIn = string.IsNullOrEmpty(bytesInRaw) ? 0 : long.Parse(bytesInRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                 var bytesOutRaw = metric.Find(x => x.MetricType == ProcessNetworkMetrics.BytesOutPerSec)?.MetricData.Text;
-                long bytesOut = string.IsNullOrEmpty(bytesOutRaw) ? 0 : long.Parse(bytesOutRaw);
+                long bytesOut = string.IsNullOrEmpty(bytesOutRaw) ? 0 : long.Parse(bytesOutRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                 var packetsInRaw = metric.Find(x => x.MetricType == ProcessNetworkMetrics.PacketsInPerSec)?.MetricData.Text;
-                int packetsIn = string.IsNullOrEmpty(packetsInRaw) ? 0 : int.Parse(packetsInRaw);
+                int packetsIn = string.IsNullOrEmpty(packetsInRaw) ? 0 : int.Parse(packetsInRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                 var packetsOutRaw = metric.Find(x => x.MetricType == ProcessNetworkMetrics.PacketsOutPerSec)?.MetricData
                     .Text;
-                int packetsOut = string.IsNullOrEmpty(packetsOutRaw) ? 0 : int.Parse(packetsOutRaw);
+                int packetsOut = string.IsNullOrEmpty(packetsOutRaw) ? 0 : int.Parse(packetsOutRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
 
                 parsedMetrics.Add(new ProcessNetworkHolder
                 {
@@ -667,7 +668,7 @@ internal class HardwareMetricsHandler
 
                 if (rawCpu != null)
                 {
-                    var cpu = Math.Round(Double.Parse(rawCpu), 2);
+                    var cpu = Math.Round(double.Parse(rawCpu,NumberStyles.Any, CultureInfo.InvariantCulture), 2);
                     cpuStatistic.Add(cpu);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.app.cpu",
@@ -681,7 +682,7 @@ internal class HardwareMetricsHandler
 
                 if (ramRaw != null)
                 {
-                    var ram = long.Parse(ramRaw);
+                    var ram = long.Parse(ramRaw,NumberStyles.Any, CultureInfo.InvariantCulture);
                     ramStatistic.Add(ram);
                     points.Add(_influxDbSync.GeneratePoint(
                         "ios.app.ram",
@@ -757,7 +758,7 @@ internal class HardwareMetricsHandler
                     var value = attributes.FirstOrDefault(x => x.Name == "id")?.Value;
 
                     if (value != null)
-                        return int.Parse(value);
+                        return int.Parse(value,NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
             }
         }
@@ -861,10 +862,10 @@ internal class HardwareMetricsHandler
         var attributes = XmlAttributesToList(xmlNode);
 
         var idStr = attributes.FirstOrDefault(x => x.Name == "id")?.Value;
-        var id = idStr == null ? (int?)null : int.Parse(idStr);
+        var id = idStr == null ? (int?)null : int.Parse(idStr,NumberStyles.Any, CultureInfo.InvariantCulture);
 
         var refStr = attributes.FirstOrDefault(x => x.Name == "ref")?.Value;
-        var @ref = refStr == null ? (int?)null : int.Parse(refStr);
+        var @ref = refStr == null ? (int?)null : int.Parse(refStr,NumberStyles.Any, CultureInfo.InvariantCulture);
 
         var childNodes = xmlNode.ChildNodes;
         var internalXmlLines = new List<XmlLine>();
@@ -902,7 +903,7 @@ internal class HardwareMetricsHandler
     
     private DateTime GetTimestamp(string rawTextTimestamp)
     {
-        var relativeTimestampMs = long.Parse(rawTextTimestamp) / 1000000;
+        var relativeTimestampMs = long.Parse(rawTextTimestamp,NumberStyles.Any, CultureInfo.InvariantCulture) / 1000000;
         return _deviceContext.StartTime.AddMilliseconds(relativeTimestampMs);
     }
     

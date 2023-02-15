@@ -117,7 +117,7 @@ public class IOSMetricsManager : IIOSMetricsManager
         
         await deviceContext.Process.WaitForExitAsync(token);
         await deviceContext.EventsProcess.WaitForExitAsync(token);
-
+    
         var xmlTraceToc = await CreateProcess(
             $"xctrace",
             $"export --input {device}.trace --toc").StartForDeviceAndGetOutput(device, token);
@@ -142,23 +142,23 @@ public class IOSMetricsManager : IIOSMetricsManager
             deviceContext.EndTime);
         
         await ExportTracesToXML(device);
-
+    
         var iosPerformanceResults = new IOSPerformanceResults();
-
+    
         var applicationMetricsHandler = new ApplicationMetricsHandler(
             deviceContext,
             _influxDb,
             iosPerformanceResults);
         
         await applicationMetricsHandler.ExtractAndSaveMetrics(token);
-
+    
         var hardwareMetricsHandler = new HardwareMetricsHandler(
             deviceContext,
             _influxDb,
             iosPerformanceResults);
-
+    
         hardwareMetricsHandler.ExtractAndSaveMetrics(token);
-
+    
         await CreateProcess($"rm", $"-rf {device}.trace").StartProcessAndWait();
         await CreateProcess($"rm", $"-rf system-{device}.xml").StartProcessAndWait();
         await CreateProcess($"rm", $"-rf process-{device}.xml").StartProcessAndWait();
@@ -166,7 +166,7 @@ public class IOSMetricsManager : IIOSMetricsManager
         await CreateProcess($"rm", $"-rf network-{device}.xml").StartProcessAndWait();
         
         Log.Information($"[IOS: {device}] IOSMetricsManager - measurement has stopped");
-
+    
         return iosPerformanceResults;
     }
 
@@ -215,12 +215,12 @@ public class IOSMetricsManager : IIOSMetricsManager
 
         deviceContext.ModelName = await CreateProcess("ideviceinfo", $"-k ProductType {device}")
             .StartForDeviceAndGetOutput(device, source.Token);
-        
+
         deviceContext.IOSVersion = await CreateProcess("ideviceinfo", $"-k ProductVersion {device}")
             .StartForDeviceAndGetOutput(device, source.Token);
-        
+
         source.CancelAfter(TimeSpan.FromSeconds(10));
-        
+
         deviceContext.DeviceParameters = new IOSDeviceParameters()
         {
             App = applicationName,
@@ -236,20 +236,20 @@ public class IOSMetricsManager : IIOSMetricsManager
             { "group", $"{deviceContext.DeviceParameters.Group}" },
             { "label", $"{deviceContext.DeviceParameters.Label}" },
             { "iosVersion", $"{deviceContext.IOSVersion}" },
-            { "deviceModel", $"{deviceContext.ModelName.Replace(",",".")}" },
+            { "deviceModel", $"{deviceContext.ModelName.Replace(",", ".")}" },
             { "device", $"{deviceContext.DeviceParameters.Device}" },
             { "application", $"{deviceContext.DeviceParameters.App}" }
         };
-        
+
         deviceContext.AnnotationTags = commonTags;
         deviceContext.CommonTags = commonTags;
-        
+
         Log.Debug(
             $"[IOS: {device}] Created device context: {JsonConvert.SerializeObject(deviceContext, Formatting.Indented)}");
-        
+
         var eventsProcess = CreateProcess("idevicesyslog", $"-m \"[PMETRIUM_NATIVE]\" {device}");
         var eventsLogs = new List<string>();
-        
+
         eventsProcess.OutputDataReceived += (sender, outLine) =>
         {
             if (!string.IsNullOrEmpty(outLine.Data))
@@ -259,7 +259,7 @@ public class IOSMetricsManager : IIOSMetricsManager
                 Log.Debug($"[IOS: {device}] {log}");
             }
         };
-        
+
         deviceContext.EventsProcess = eventsProcess;
         deviceContext.EventsLogs = eventsLogs;
         eventsProcess.StartForDevice(device);

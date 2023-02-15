@@ -60,7 +60,7 @@
           "type": "influxdb",
           "uid": "pm2022"
         },
-        "enable": false,
+        "enable": true,
         "iconColor": "blue",
         "name": "Events",
         "query": "SELECT text,timestampText FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]' AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND \"text\" =~ /.*$event.*/",
@@ -78,7 +78,7 @@
           "type": "influxdb",
           "uid": "pm2022"
         },
-        "enable": true,
+        "enable": false,
         "iconColor": "semi-dark-purple",
         "name": "ComplexEvents",
         "query": "SELECT text,timestampText FROM \"ios.annotations\" WHERE  $timeFilter AND \"title\" !='[ Test STARTED ]' AND \"title\" !='[ Test FINISHED ]' AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND \"text\" =~ /.*$complexEvent.*/",
@@ -97,7 +97,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": 2,
-  "iteration": 1671458673346,
+  "iteration": 1676476544660,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -215,7 +215,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT percentage FROM \"ios.system.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(percentage) FROM \"ios.system.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -325,7 +325,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.system.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(bytes) FROM \"ios.system.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -435,7 +435,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.system.disk.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(bytes) FROM \"ios.system.disk.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -447,7 +447,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.system.disk.data.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(bytes) FROM \"ios.system.disk.data.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -557,7 +557,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.system.disk.ops.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(count) FROM \"ios.system.disk.ops.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -569,7 +569,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.system.disk.ops.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(count) FROM \"ios.system.disk.ops.written\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -694,7 +694,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.system.network.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(bytes) FROM \"ios.system.network.data.read\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -706,7 +706,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.system.network.data.sent\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(bytes) FROM \"ios.system.network.data.sent\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -830,7 +830,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.system.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(count) FROM \"ios.system.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -842,7 +842,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.system.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(count) FROM \"ios.system.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -967,7 +967,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.system.fps\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT mean(count) FROM \"ios.system.fps\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1077,7 +1077,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT  percentage FROM \"ios.system.gpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ ",
+          "query": "SELECT  mean(percentage) FROM \"ios.system.gpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1145,8 +1145,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1200,7 +1199,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT percentage FROM \"ios.app.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/",
+          "query": "SELECT mean(percentage) FROM \"ios.app.cpu\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1255,8 +1254,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1310,7 +1308,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.app.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/",
+          "query": "SELECT mean(bytes) FROM \"ios.app.ram\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1365,8 +1363,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1435,7 +1432,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.app.network.data.rx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "query": "SELECT mean(bytes) FROM \"ios.app.network.data.rx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)\n",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1447,7 +1444,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT bytes FROM \"ios.app.network.data.tx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "query": "SELECT mean(bytes) FROM \"ios.app.network.data.tx\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1502,8 +1499,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1572,7 +1568,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.app.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "query": "SELECT mean(count) FROM \"ios.app.network.packets.in\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)\n",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1584,7 +1580,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT count FROM \"ios.app.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/\n",
+          "query": "SELECT mean(count) FROM \"ios.app.network.packets.out\" WHERE $timeFilter AND space=~ /$space$/ AND \"group\" =~ /$group$/ AND label =~ /$label$/ AND iosVersion =~ /$iosVersion$/ AND deviceModel =~ /$deviceModel$/ AND device =~ /$device$/ AND application =~ /$application$/ GROUP BY time($groupTime) FILL($fill)\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1639,8 +1635,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1694,7 +1689,7 @@
             "uid": "pm2022"
           },
           "hide": false,
-          "query": "SELECT latency FROM \"ios.events.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND application =~ /^$application$/ AND event =~ /.*$complexEvent.*/ GROUP BY event",
+          "query": "SELECT mean(latency) FROM \"ios.events.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND iosVersion =~ /^$iosVersion$/ AND deviceModel =~ /^$deviceModel$/ AND device =~ /^$device$/ AND application =~ /^$application$/ AND event =~ /.*$complexEvent.*/ GROUP BY time($groupTime), event FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1712,7 +1707,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1740,7 +1735,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1768,7 +1763,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1796,7 +1791,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1824,7 +1819,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1852,7 +1847,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1879,7 +1874,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1907,7 +1902,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1935,7 +1930,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -1960,17 +1955,117 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "1s",
+          "value": "1s"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "GroupTime",
+        "multi": false,
+        "name": "groupTime",
+        "options": [
+          {
+            "selected": false,
+            "text": "1ms",
+            "value": "1ms"
+          },
+          {
+            "selected": false,
+            "text": "10ms",
+            "value": "10ms"
+          },
+          {
+            "selected": false,
+            "text": "100ms",
+            "value": "100ms"
+          },
+          {
+            "selected": false,
+            "text": "500ms",
+            "value": "500ms"
+          },
+          {
+            "selected": true,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          }
+        ],
+        "query": "1ms,10ms,100ms,500ms,1s,5s,10s,30s,1m,5m,10m",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "null",
+          "value": "null"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "OptimiseQuery",
+        "multi": false,
+        "name": "fill",
+        "options": [
+          {
+            "selected": true,
+            "text": "null",
+            "value": "null"
+          },
+          {
+            "selected": false,
+            "text": "none",
+            "value": "none"
+          }
+        ],
+        "query": "null,none",
+        "skipUrlSync": false,
+        "type": "custom"
       }
     ]
   },
   "time": {
-    "from": "2022-12-16T15:57:49.692Z",
-    "to": "2022-12-16T15:58:14.761Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "PMetrium Native - IOS",
   "uid": "LqCx-dHVk",
-  "version": 74,
+  "version": 94,
   "weekStart": "monday"
 }

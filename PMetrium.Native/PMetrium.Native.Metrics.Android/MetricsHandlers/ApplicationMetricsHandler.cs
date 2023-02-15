@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using InfluxDB.Client.Writes;
 using Newtonsoft.Json;
@@ -219,7 +220,8 @@ public class ApplicationMetricsHandler
                     @event.IsEnd = true;
 
                 var timestamp = Regex.Match(log, "\\d+$").Value;
-                @event.Timestamp = DateTime.UnixEpoch.AddMilliseconds(long.Parse(timestamp));
+                @event.Timestamp =
+                    DateTime.UnixEpoch.AddMilliseconds(long.Parse(timestamp, NumberStyles.Any, CultureInfo.InvariantCulture));
                 @event.Name = log.Replace(timestamp, "").Trim();
 
                 list.Add(@event);
