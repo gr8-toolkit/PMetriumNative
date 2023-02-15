@@ -3,7 +3,7 @@ title: ChangeLog
 sidebar_position: 1
 ---
 
-## v2.1 - 2022-02-11
+## v2.1 - 2023-02-11
 **Fixed:**
 - Issue with localisation in double.Parse methods
 

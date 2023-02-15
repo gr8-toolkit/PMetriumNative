@@ -101,7 +101,7 @@ Endpoint is responsible for sending a signal to the PMetrium Native framework to
 
 `space`, `group` and `label` have the same meaning as for Android and will affect only IOS metrics and Grafana Dashboard. 
 
-Please also note, that `applicationName` here means `udid` of the IOS device
+Please also note, that `device` here means `udid` of the IOS device
 
 ### GET `/IOS/Stop`
 

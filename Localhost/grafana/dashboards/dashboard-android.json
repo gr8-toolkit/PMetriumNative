@@ -80,7 +80,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1671458710934,
+  "iteration": 1676476077790,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -221,7 +221,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT percentage FROM \"android.cpu.usage.total\" WHERE  $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(percentage) FROM \"android.cpu.usage.total\" WHERE  $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -265,7 +265,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT percentage FROM \"android.cpu.usage.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(percentage) FROM \"android.cpu.usage.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -459,7 +459,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.ram.total\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.ram.total\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -503,7 +503,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.ram.usage.total\" WHERE  $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.ram.usage.total\" WHERE  $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -547,7 +547,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.ram.usage.app.pss\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.ram.usage.app.pss\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -591,7 +591,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.ram.usage.app.private\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ AND application =~ /^$application/ ",
+          "query": "SELECT mean(byte) FROM \"android.ram.usage.app.private\" WHERE $timeFilter AND space =~ /^$space/ AND \"group\" =~ /^$group/ AND label =~ /^$label/ AND androidVersion =~ /^$androidVersion/ AND deviceName =~ /^$deviceName/ AND device =~ /^$device/ AND application =~ /^$application/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -719,7 +719,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.speed.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.speed.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -763,7 +763,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.speed.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.speed.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -807,7 +807,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.speed.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.speed.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "G",
           "resultFormat": "time_series",
@@ -851,7 +851,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.speed.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.speed.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "H",
           "resultFormat": "time_series",
@@ -895,7 +895,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.speed.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.speed.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -939,7 +939,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.speed.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.speed.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -983,7 +983,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.speed.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.speed.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1027,7 +1027,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.speed.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.speed.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "F",
           "resultFormat": "time_series",
@@ -1107,32 +1107,7 @@
           },
           "unit": "decbytes"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Mobile RX bytes - App"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -1180,7 +1155,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.all.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.all.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1224,7 +1199,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.all.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.all.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1268,7 +1243,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.all.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.all.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "G",
           "resultFormat": "time_series",
@@ -1312,7 +1287,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.wifi.all.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.wifi.all.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "H",
           "resultFormat": "time_series",
@@ -1356,7 +1331,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.all.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.all.total.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1400,7 +1375,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.all.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.all.total.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1444,7 +1419,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.all.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.all.app.tx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1488,7 +1463,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT byte FROM \"android.network.mobile.all.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(byte) FROM \"android.network.mobile.all.app.rx\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "F",
           "resultFormat": "time_series",
@@ -1619,7 +1594,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mAh FROM \"android.battery.usage.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(mAh) FROM \"android.battery.usage.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1779,7 +1754,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT count FROM \"android.frames.rendered\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(count) FROM \"android.frames.rendered\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1823,7 +1798,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT count FROM \"android.frames.janky\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/",
+          "query": "SELECT mean(count) FROM \"android.frames.janky\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ GROUP BY time($groupTime) FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1955,7 +1930,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT latency FROM \"android.events.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ AND event =~ /.*$complexEvent.*/ GROUP BY event",
+          "query": "SELECT mean(latency) FROM \"android.events.app\" WHERE $timeFilter AND space =~ /^$space$/ AND \"group\" =~ /^$group$/ AND label =~ /^$label$/ AND androidVersion =~ /^$androidVersion$/ AND deviceName =~ /^$deviceName$/ AND device =~ /^$device$/ AND application =~ /^$application$/ AND event =~ /.*$complexEvent.*/ GROUP BY time($groupTime), event FILL($fill)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1989,7 +1964,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2017,7 +1992,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2045,7 +2020,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2073,7 +2048,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2101,7 +2076,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2129,7 +2104,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2157,7 +2132,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2185,7 +2160,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2213,7 +2188,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -2238,17 +2213,118 @@
         "skipUrlSync": false,
         "sort": 3,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "1s",
+          "value": "1s"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "GroupTime",
+        "multi": false,
+        "name": "groupTime",
+        "options": [
+          {
+            "selected": false,
+            "text": "1ms",
+            "value": "1ms"
+          },
+          {
+            "selected": false,
+            "text": "10ms",
+            "value": "10ms"
+          },
+          {
+            "selected": false,
+            "text": "100ms",
+            "value": "100ms"
+          },
+          {
+            "selected": false,
+            "text": "500ms",
+            "value": "500ms"
+          },
+          {
+            "selected": true,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          }
+        ],
+        "query": "1ms,10ms,100ms,500ms,1s,5s,10s,30s,1m,5m,10m",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "null",
+          "value": "null"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "OptimiseQuery",
+        "multi": false,
+        "name": "fill",
+        "options": [
+          {
+            "selected": true,
+            "text": "null",
+            "value": "null"
+          },
+          {
+            "selected": false,
+            "text": "none",
+            "value": "none"
+          }
+        ],
+        "query": "null,none",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
       }
     ]
   },
   "time": {
-    "from": "2022-12-16T15:28:58.086Z",
-    "to": "2022-12-16T15:30:35.957Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "utc",
   "title": "PMetrium Native - Android",
   "uid": "mtPy_xrnz",
-  "version": 100,
+  "version": 124,
   "weekStart": "monday"
 }
