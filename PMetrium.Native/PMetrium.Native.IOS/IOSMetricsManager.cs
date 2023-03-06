@@ -25,7 +25,7 @@ public interface IIOSMetricsManager
 
 public class IOSMetricsManager : IIOSMetricsManager
 {
-    private InfluxDBSync _influxDb;
+    private InfluxDBSync _influxDb; 
     private ConcurrentDictionary<string, IOSDeviceContext> _devicesContexts = new();
 
     public IOSMetricsManager(InfluxDBSync influxDb)
