@@ -16,7 +16,7 @@ public interface IIOSMetricsManager
     Task Start(
         string device,
         string applicationName,
-        string space,
+        string space, 
         string group,
         string label);
 
