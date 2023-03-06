@@ -9,7 +9,7 @@
     
     <import-schema>activity-monitor-system</import-schema>
     <import-schema>activity-monitor-process-live</import-schema>
-    <import-schema>core-animatяion-fps-estimate</import-schema>
+    <import-schema>core-animation-fps-estimate</import-schema>
     <import-schema>network-connection-stat</import-schema>
     
     <instrument>
