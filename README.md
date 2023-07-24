@@ -1,7 +1,7 @@
 ## <img src="Assets/PMetriumNativeLogo.png" width="80" height="80"> PMetrium Native
 
 
-**PMetriumNative** - a testing tool for measuring performance of mobile native applications as well as the system itself.
+**PMetriumNative** - 2 a testing tool for measuring performance of mobile native applications as well as the system itself.
 
 Please follow the **[DOCUMENTATION](https://parimatch-tech.github.io/PMetriumNative/)** to get detailed information about PMetrium Native. 
 
