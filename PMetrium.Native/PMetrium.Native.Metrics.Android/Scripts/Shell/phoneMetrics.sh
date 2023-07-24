@@ -110,7 +110,7 @@ RAM_USAGE_TOTAL_PID=$!
 
 # =============> Get NETWORK usage statistic for the whole system and the APP
 
-dumpsys batterystats --reset
+dumpsys batterystats --reset  
 
 if $NETWORK_TOTAL && [ $APP_NAME != "system" ]; then
   while [ $(cat $TEST_STATUS_FILE) = "started" ]; do
