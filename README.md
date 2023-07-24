@@ -1,13 +1,13 @@
 ## <img src="Assets/PMetriumNativeLogo.png" width="80" height="80"> PMetrium Native
 
 
-**PMetriumNative** - 2 a testing tool for measuring performance of mobile native applications as well as the system itself.
+**PMetriumNative** - a testing tool for measuring performance of mobile native applications as well as the system itself.
 
-Please follow the **[DOCUMENTATION](https://parimatch-tech.github.io/PMetriumNative/)** to get detailed information about PMetrium Native. 
+Please follow the **[DOCUMENTATION](https://gr8-toolkit.github.io/PMetriumNative/)** to get detailed information about PMetrium Native. 
 
 Key facts about the instrument:
-- PMetrium Native works as web server on the host machine with direct connections to real devices. Therefor PMetrium Native provides you a [RESTful API](https://parimatch-tech.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-api) for interactions
-- PMetrium Native stores their [metrics](https://parimatch-tech.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-metrics-android) in InfluxDB
+- PMetrium Native works as web server on the host machine with direct connections to real devices. Therefor PMetrium Native provides you a [RESTful API](https://gr8-toolkit.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-api) for interactions
+- PMetrium Native stores their [metrics](https://gr8-toolkit.github.io/PMetriumNative/tools/pmetrium-native/architecture/development/pmetrium-metrics-android) in InfluxDB
 - PMetrium Native visualizes their metrics with Grafana Dashboard, which is connected to InfluxDB
 - PMetrium Native v.2.1 supports Android and IOS platforms
 - PMetrium Native does not require integration into the source code of the native application
